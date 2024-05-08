@@ -9,6 +9,56 @@
 
   <style>
     /* CSS styles */
+/* أنماط شاشة التحميل */
+      overflow: hidden;
+      padding: 10px 5px;
+      word-break: normal;
+    }
+
+    .tg .tg-0pky {
+      border-color: inherit;
+      text-align: center;
+      vertical-align: top;
+    }
+
+    .tg .tg-0lax {
+      text-align: center;
+      vertical-align: top;
+    }
+
+    /* تعديل للتجاوب مع الشاشات الصغيرة */
+    @media (min-width: 601px) {
+      .tg td:nth-child(1),
+      .tg th:nth-child(1) {
+        width: 30%;
+        text-align: right;
+      }
+
+      .tg td:nth-child(2),
+      .tg th:nth-child(2) {
+        width: 70%;
+        text-align: right;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .tg td,
+      .tg th {
+        display: block;
+        text-align: right;
+      }
+
+      .tg td:nth-child(odd),
+      .tg th:nth-child(odd) {
+        background-color: #f2f2f2;
+      }
+    }
+
+    /* تنسيق المحتوى */
+    #summary {
+      white-space: pre-line;
+    }
+
   </style>
 
 </head>
