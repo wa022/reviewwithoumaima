@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
   <title>تفاصيل الكتاب</title>
 
   <style>
@@ -145,7 +146,43 @@
   </div>
 
   <div id="book-details" class="hidden">
-    <!-- هنا يتم استعراض تفاصيل الكتاب -->
+    <table style="width: 100%;border-color: transparent;" class="tg">
+      <thead>
+        <tr>
+          <th style="text-align: center;border-color: transparent;" class="tg-0lax">
+            <h2 id="book-title"></h2>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center;border-color: transparent;" class="tg-0lax" rowspan="5"><img style="height: 400px;" id="book-cover" src="" alt="غلاف الكتاب"></td>
+          <td class="tg-0pky"><p id="author"></p></td>
+        </tr>
+        <tr>
+          <td class="tg-0pky"><p id="pages"></p></td>
+        </tr>
+        <tr>
+          <td class="tg-0pky"><p id="category"></td>
+        </tr>
+        <tr>
+          <td class="tg-0pky"><p id="rating"><span class="star-rating"></span></p></td>
+        </tr>
+        <tr>
+          <td class="tg-0pky">تقييم الزوار<p id="rating-f"><span class="star-rating"></span></p></td>
+        </tr>
+        <tr>
+          <td style="border-color: transparent;" class="tg-0lax" colspan="2">
+            <p id="summary"></p>
+          </td>
+        </tr>
+        <tr>
+          <td style="border-color: transparent;" class="tg-0lax" colspan="2">
+            <p id="review"></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- نموذج تقييم الزوار -->
@@ -153,6 +190,8 @@
     <div class="content">
       <div class="user-details">
         <form id="visitorRatingForm" style="color: white; margin-left: 5%; margin-right: 5%; margin-bottom: 60px; margin-top: 50px; text-align: right;">
+          <input type="hidden" id="bookTitle" name="bookTitle" value="">
+          <input type="hidden" id="author" name="author" value="">
           <div class="input-box">
             <label for="visitorRating" class="form-label">تقييم الزوار</label>
             <input type="number" id="visitorRating" name="visitorRating" min="1" max="5" required>
@@ -166,7 +205,107 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
-      // يتم وضع الجزء السابق من السكريبت هنا
+      // Retrieve book title from URL parameters
+      var urlParams = new URLSearchParams(window.location.search);
+      var bookTitle = decodeURIComponent(urlParams.get('title'));
+
+      // Fetch book data from the specified data source
+      $.ajax({
+        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+        method: "GET",
+        success: function (data) {
+          var books = data.values;
+          books.shift();
+
+          // Find the book using its title
+          var foundBook = books.find(function (book) {
+            return book[0] === bookTitle;
+          });
+
+          // Display book details if found
+          if (foundBook) {
+            // Display book title
+            $('#book-title').text(foundBook[0]);
+
+            // Display book cover (replace with actual image URL)
+            $('#book-cover').attr('src', foundBook[1]);
+
+            // Display author
+            $('#author').text('' + foundBook[2]);
+
+            // Display category
+            $('#category').text('' + foundBook[4]);
+
+            // Display pages
+            $('#pages').text('' + foundBook[3]);
+
+            // Display review (if provided)
+            if (foundBook[7]) {
+              $('#review').text('' + foundBook[8]);
+            } else {
+              $('#review').text('لا توجد مراجعة حاليا.');
+            }
+
+            // Get the visitor rating value from column 10
+            var visitorRatingValue = parseInt(foundBook[10]);
+
+            // Create and display the visitor star rating
+            var visitorStarRating = $('#rating-f .star-rating');
+            visitorStarRating.empty(); // Clear any existing stars
+
+            for (var i = 1; i <= visitorRatingValue; i++) {
+              var star = $('<span>').addClass('star fa fa-star filled');
+              visitorStarRating.append(star);
+            }
+
+            // Display summary
+            $('#summary').text('' + foundBook[7]);
+
+            // Get the official rating value from column 6
+            var officialRatingValue = parseInt(foundBook[6]);
+
+            // Create and display the official star rating
+            var officialStarRating = $('#rating .star-rating');
+            officialStarRating.empty(); // Clear any existing stars
+
+            for (var i = 1; i <= officialRatingValue; i++) {
+              var star = $('<span>').addClass('star fa fa-star filled');
+              officialStarRating.append(star);
+            }
+
+            // Get the number of additional images from column 9
+            var numImages = parseInt(foundBook[9]);
+
+            // Create and display the additional images container
+            var imageContainer = $('#additional-images');
+            imageContainer.empty(); // Clear any existing images
+
+            // Add the specified number of images (replace with actual image URL)
+            for (var i = 0; i < numImages; i++) {
+              var image = $('<img>');
+              image.attr('src', 'https://www.wheeliebinnumber.co.uk/wp-content/uploads/2016/09/O-1.jpg'); // Replace with actual image URL
+              image.css('width', '515px');
+              image.css('height', '515px');
+              image.css('margin-bottom', '10px');
+              imageContainer.append(image);
+            }
+
+            // Hide loading screen and fade in book details
+            $('#loading-screen').fadeOut('slow', function () {
+              $('#book-details').fadeIn('slow');
+            });
+          } else {
+            // Handle book not found case
+            $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
+            $('#loading-screen').fadeOut('slow');
+          }
+        },
+        error: function () {
+          // Handle errors during data fetching
+          $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
+          $('#loading-screen').fadeOut('slow');
+        }
+      });
 
       // Handle visitor rating form submission
       $('#visitorRatingForm').submit(function (event) {
@@ -175,12 +314,13 @@
         // Perform any necessary validation before sending the rating
         // Assuming the book title is still available in the URL parameter
         // Construct the URL for submitting the rating
-        var submitRatingURL = "https://avndesa.000webhostapp.com/process_rating.php"; // تعديل رابط الصفحة PHP هنا
+        var submitRatingURL = "https://avndesa.000webhostapp.com/process_rating.php";
         // Assuming the book title is still available in the URL parameter
         var bookTitle = decodeURIComponent(urlParams.get('title'));
         // Prepare the data to be sent
         var ratingData = {
-          bookTitle: bookTitle,
+          bookTitle: $('#bookTitle').val(),
+          author: $('#author').val(),
           visitorRating: visitorRating
         };
         // Send the rating
