@@ -331,10 +331,10 @@
             $('#feedbackMessage').show();
           },
           error: function (xhr, status, error) {
-            // Handle error response if needed
-            console.error("Error submitting rating:", error);
-            alert("حدث خطأ أثناء إرسال التقييم.");
-          }
+    // Handle error response if needed
+    console.error("Error submitting rating:", error);
+    // لا حاجة لعرض رسالة الخطأ
+}
         });
       });
     });
