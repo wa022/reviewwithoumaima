@@ -231,7 +231,7 @@
             $('#book-cover').attr('src', foundBook[1]);
 
             // Display author
-            $('#author').text('' + foundBook[2]);
+            $('#author').val(foundBook[2]);
 
             // Display category
             $('#category').text('' + foundBook[4]);
@@ -321,7 +321,8 @@
         var ratingData = {
           bookTitle: $('#bookTitle').val(),
           author: $('#author').val(),
-          visitorRating: visitorRating
+          visitorRating: visitorRating,
+          movieTitle: foundBook[0]
         };
         // Send the rating
         $.ajax({
