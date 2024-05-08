@@ -170,6 +170,29 @@
         </tr>
         <tr>
           <td class="tg-0pky">تقييم الزوار<p id="rating-f"><span class="star-rating"></span></p></td>
+         <br>
+
+
+  <!-- نموذج تقييم الزوار -->
+  <div class="container">
+    <div class="content">
+      <div class="user-details">
+        <form id="visitorRatingForm" style="color: white; margin-left: 5%; margin-right: 5%; margin-bottom: 60px; margin-top: 50px; text-align: right;" action="https://avndesa.000webhostapp.com/process_rating.php" method="POST">
+          <div class="input-box">
+            <input type="hidden" id="bookTitle" name="bookTitle">
+            <input type="hidden" id="author" name="author">
+            <label style="color:black;" for="visitorRating" class="form-label">تقييم الزوار</label>
+            <input style="color:black;" type="number" id="visitorRating" name="visitorRating" min="1" max="5" required>
+          </div>
+          <button style="color:black;" type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
+          <p id="sendingMessage" style="display:none;color:black;">رأيك يهمنا. شكرًا على المشاركة!</p>
+      
+        </form>
+      </div>
+    </div>
+  </div>
+
+
         </tr>
         <tr>
           <td style="border-color: transparent;" class="tg-0lax" colspan="2">
@@ -185,24 +208,7 @@
     </table>
   </div>
 
-  <!-- نموذج تقييم الزوار -->
-  <div class="container">
-    <div class="content">
-      <div class="user-details">
-        <form id="visitorRatingForm" style="color: white; margin-left: 5%; margin-right: 5%; margin-bottom: 60px; margin-top: 50px; text-align: right;" action="https://avndesa.000webhostapp.com/process_rating.php" method="POST">
-          <div class="input-box">
-            <input type="hidden" id="bookTitle" name="bookTitle">
-            <input type="hidden" id="author" name="author">
-            <label for="visitorRating" class="form-label">تقييم الزوار</label>
-            <input type="number" id="visitorRating" name="visitorRating" min="1" max="5" required>
-          </div>
-          <button style="color:black;" type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
-          <p id="sendingMessage" style="display:none;color:black;">رأيك يهمنا. شكرًا على المشاركة!</p>
-      
-        </form>
-      </div>
-    </div>
-  </div>
+
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
