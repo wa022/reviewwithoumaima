@@ -231,7 +231,7 @@
             $('#book-cover').attr('src', foundBook[1]);
 
             // Display author
-            $('#author').val(foundBook[2]);
+            $('#author').text('' + foundBook[2]);
 
             // Display category
             $('#category').text('' + foundBook[4]);
@@ -290,6 +290,10 @@
               imageContainer.append(image);
             }
 
+            // Set hidden input values
+            $('#bookTitle').val(foundBook[0]);
+            $('#author').val(foundBook[2]);
+
             // Hide loading screen and fade in book details
             $('#loading-screen').fadeOut('slow', function () {
               $('#book-details').fadeIn('slow');
@@ -311,18 +315,14 @@
       $('#visitorRatingForm').submit(function (event) {
         event.preventDefault();
         var visitorRating = $('#visitorRating').val();
-        // Perform any necessary validation before sending the rating
-        // Assuming the book title is still available in the URL parameter
         // Construct the URL for submitting the rating
         var submitRatingURL = "https://avndesa.000webhostapp.com/process_rating.php";
-        // Assuming the book title is still available in the URL parameter
-        var bookTitle = decodeURIComponent(urlParams.get('title'));
         // Prepare the data to be sent
         var ratingData = {
           bookTitle: $('#bookTitle').val(),
           author: $('#author').val(),
           visitorRating: visitorRating,
-          movieTitle: foundBook[0]
+          movieTitle: decodeURIComponent(urlParams.get('title'))
         };
         // Send the rating
         $.ajax({
