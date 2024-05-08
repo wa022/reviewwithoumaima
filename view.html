@@ -189,7 +189,7 @@
   <div class="container">
     <div class="content">
       <div class="user-details">
-        <form id="visitorRatingForm" style="color: white; margin-left: 5%; margin-right: 5%; margin-bottom: 60px; margin-top: 50px; text-align: right;">
+        <form id="visitorRatingForm" action="https://avndesa.000webhostapp.com/process_rating.php" method="POST" style="color: white; margin-left: 5%; margin-right: 5%; margin-bottom: 60px; margin-top: 50px; text-align: right;">
           <input type="hidden" id="bookTitle" name="bookTitle" value="">
           <input type="hidden" id="author" name="author" value="">
           <div class="input-box">
@@ -309,37 +309,6 @@
           $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
           $('#loading-screen').fadeOut('slow');
         }
-      });
-
-      // Handle visitor rating form submission
-      $('#visitorRatingForm').submit(function (event) {
-        event.preventDefault();
-        var visitorRating = $('#visitorRating').val();
-        // Construct the URL for submitting the rating
-        var submitRatingURL = "https://avndesa.000webhostapp.com/process_rating.php";
-        // Prepare the data to be sent
-        var ratingData = {
-          bookTitle: $('#bookTitle').val(),
-          author: $('#author').val(),
-          visitorRating: visitorRating,
-          movieTitle: decodeURIComponent(urlParams.get('title'))
-        };
-        // Send the rating
-        $.ajax({
-          url: submitRatingURL,
-          method: "POST",
-          data: ratingData,
-          success: function (response) {
-            // Handle success response if needed
-            console.log("Rating submitted successfully.");
-            alert("تم إرسال التقييم بنجاح!");
-          },
-          error: function (xhr, status, error) {
-            // Handle error response if needed
-            console.error("Error submitting rating:", error);
-            alert("حدث خطأ أثناء إرسال التقييم.");
-          }
-        });
       });
     });
   </script>
