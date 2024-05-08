@@ -189,7 +189,7 @@
   <div class="container">
     <div class="content">
       <div class="user-details">
-        <form id="visitorRatingForm" style="color: white; margin-left: 5%; margin-right: 5%; margin-bottom: 60px; margin-top: 50px; text-align: right;">
+        <form id="visitorRatingForm" style="color: white; margin-left: 5%; margin-right: 5%; margin-bottom: 60px; margin-top: 50px; text-align: right;" action="https://avndesa.000webhostapp.com/process_rating.php" method="POST">
           <div class="input-box">
             <input type="hidden" id="bookTitle" name="bookTitle">
             <input type="hidden" id="author" name="author">
@@ -316,19 +316,9 @@
       // Handle visitor rating form submission
       $('#visitorRatingForm').submit(function (event) {
         event.preventDefault();
-        var visitorRating = $('#visitorRating').val();
-        var bookTitle = $('#bookTitle').val();
-        var author = $('#author').val();
-        var formData = {
-          bookTitle: bookTitle,
-          author: author,
-          visitorRating: visitorRating
-        };
-        
-        // Show sending message
         $('#submitRating').hide();
         $('#sendingMessage').show();
-
+        var formData = $(this).serialize();
         // Send the rating
         $.ajax({
           url: "https://avndesa.000webhostapp.com/process_rating.php",
@@ -344,9 +334,6 @@
             // Handle error response if needed
             console.error("Error submitting rating:", error);
             alert("حدث خطأ أثناء إرسال التقييم.");
-            // Restore submit button
-            $('#submitRating').show();
-            $('#sendingMessage').hide();
           }
         });
       });
