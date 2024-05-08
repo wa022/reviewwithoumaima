@@ -196,7 +196,7 @@
             <label for="visitorRating" class="form-label">تقييم الزوار</label>
             <input type="number" id="visitorRating" name="visitorRating" min="1" max="5" required>
           </div>
-          <button type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
+          <button type="button" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
           <p id="sendingMessage" style="display:none;">جاري إرسال التقييم في انتظار الارسال...</p>
           <p id="feedbackMessage" style="display:none;">رايك يهمنا. شكراً على مشاركتك!</p>
         </form>
@@ -292,10 +292,6 @@
               imageContainer.append(image);
             }
 
-            // Set hidden input values
-            $('#bookTitle').val(foundBook[0]);
-            $('#author').val(foundBook[2]);
-
             // Hide loading screen and fade in book details
             $('#loading-screen').fadeOut('slow', function () {
               $('#book-details').fadeIn('slow');
@@ -314,8 +310,7 @@
       });
 
       // Handle visitor rating form submission
-      $('#visitorRatingForm').submit(function (event) {
-        event.preventDefault();
+      $('#submitRating').click(function () {
         var visitorRating = $('#visitorRating').val();
         var bookTitle = $('#bookTitle').val();
         var author = $('#author').val();
