@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>مراجعة مع أميمة</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&display=swap" rel="stylesheet">
+
+
+
+   <style>
+    body {
+        font-family: Noto Kufi Arabic, sans-serif;
+        margin: 0;
+        
+        background-color: #f5f2e6; /* Orange theme */
+        direction: rtl; /* RTL direction for body */
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    #results-container {
+        display: flex; /* استخدم Flexbox للمركز */
+        flex-wrap: wrap; /* للسماح بالتفاف العناصر عند الحاجة */
+        justify-content: center; /* محاذاة العناصر في الوسط */
+    }
+
+    .book {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        box-sizing: border-box;
+        text-align: center; /* Center text within book elements */
+        display: inline-block; /* Display books side-by-side */
+        margin: 10px;
+    }
+
+    /* Adjust for smaller screens (less than 992px) */
+    @media (max-width: 991px) {
+        .book {
+            width: calc(33.333% - 20px); /* Adjust width for 3 columns */
+        }
+    }
+
+    /* Adjust for smaller screens (less than 768px) */
+    @media (max-width: 767px) {
+        .book {
+            width: calc(50% - 20px); /* Adjust width for 2 columns */
+        }
+    }
+
+    /* Adjust for even smaller screens (less than 480px) */
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 10px; /* إضافة هامش يمين ويسار بـ 10 بكسل */
+        }
+
+        .book {
+            width: calc(100% - 20px); /* عرض العناصر بالمنتصف مع مسافة 10 بكسل من الجهتين */
+        }
+    }
+
+    .book img {
+        width: 100%; /* Make images responsive to container width */
+        height: 350px; /* Set a fixed height for all images */
+        object-fit: cover; /* Crop images to fit the container */
+    }
+
+    .view-book-btn {
+       font-family: Noto Kufi Arabic, sans-serif;
+        padding: 5px 10px;
+        background-color: #e74c3c; /* Orange button color */
+        color: white;
+        border: none;
+        border-radius: 40px;
+        cursor: pointer;
+        margin-top: 10px;
+        display: block; /* Make button a block element */
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%; /* Adjust button width */
+    }
+
+    h3 {
+        color: #85640a; /* Darker orange for headings */
+        margin-bottom: 20px; /* Add bottom margin */
+        text-decoration: none; /* Remove underline from book titles */
+    }
+
+    /* تغيير لون العناصر عند تمرير المؤشر (hover) */
+    .book:hover {
+        border-color: #e74c3c; /* تغيير لون الحدود للكتاب */
+    }
+
+    .book:hover h3 {
+        color: #e74c3c; /* تغيير لون عنوان الكتاب */
+    }
+
+    .book:hover .view-book-btn {
+        background-color: red; /* تغيير لون زر المراجعة */
+    }
+
+    /* Second Style Section */
+
+    header {
+        background-color: #fdffe5;
+        color: #fff;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo {
+        width: 100px;
+        height: auto;
+        margin-left: 10%;
+        margin-right: 5%;
+    }
+
+    nav {
+        display: flex;
+        gap: 20px;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-a {
+        text-decoration: none;
+    }
+
+    nav.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 140px;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        /* border: 1px solid #333; */
+        border-radius: 0px;
+        padding: 10px;
+        height: auto;
+    }
+
+    nav.open a {
+        color: #000;
+    }
+
+    .menu-icon {
+        display: none;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        background-image: url('https://wa022.github.io/2028/menu.png');
+        background-size: cover;
+    }
+
+    .search-box {
+        text-align: center;
+        padding: 20px;
+    }
+
+ .search-box input{
+        border-width: 1px;
+        height: 20px;
+        border-radius: 30px;
+        padding-right: 15px;
+    }
+
+.search-box button {
+        border-width: 1px;
+        height: 20px;
+        border-radius: 30px;
+        text-align: center;
+    }
+
+
+
+    @media screen and (max-width: 576px) {
+        header {
+            flex-direction: row-reverse;
+        }
+
+        .logo {
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
+        nav {
+            display: none;
+        }
+
+        .menu-icon {
+            display: block;
+        }
+
+        .search-box {
+            padding: 10px;
+        }
+    }
+
+    @media screen and (min-width: 577px) and (max-width: 768px) {
+        .logo {
+            margin-left: 5%;
+            margin-right: 10%;
+        }
+    }
+
+    @media screen and (min-width: 769px) and (max-width: 992px) {
+        .logo {
+            margin-left: 10%;
+            margin-right: 5%;
+        }
+    }
+
+    @media screen and (min-width: 993px) {
+        .logo {
+            margin-left: 10%;
+            margin-right: 5%;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()"></div>
+        <img src="https://wa022.github.io/2028/oumaima.png" alt="شعار" class="logo">
+        <nav >
+            <a href="#" class="nav-a">الرئيسية</a>
+            <a href="#" class="nav-a">من أنا</a>
+            <a href="#" class="nav-a">للتواصل معي</a>
+        </nav>
+    </header>
+
+    <div class="search-box">
+        <input type="text" placeholder="ابحث هنا...">
+        <button>ابحث</button>
+    </div>
+
+    <!-- المحتوى الآخر يأتي هنا -->
+    
+    
+    
+     <section id="results-container" class="container">
+
+    <div id="results"></div>
+
+  </section>
+    
+    
+    
+
+    <script>
+      function toggleMenu() {
+        const nav = document.querySelector('nav');
+        const menuIcon = document.querySelector('.menu-icon');
+
+        nav.classList.toggle('open');
+
+        // تغيير الصورة بناءً على حالة القائمة
+        if (nav.classList.contains('open')) {
+            menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/left-arrow.png')";
+        } else {
+            menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/menu.png')";
+        }
+    }
+      
+      
+
+
+    // الدالة للبحث عن الكلمة المدخلة
+    function searchBooks() {
+        var searchTerm = document.querySelector('input[type="text"]').value.trim().toLowerCase(); // الكلمة المدخلة في مربع البحث
+
+        // توجيه المستخدم إلى صفحة result.html مع إضافة الكلمة المدخلة كمعلمة في العنوان
+        window.location.href = 'result.html?search=' + encodeURIComponent(searchTerm);
+    }
+    
+    // اربط الدالة بزر البحث
+    document.querySelector('button').addEventListener('click', searchBooks);
+
+
+
+
+      
+         $(document).ready(function(){
+      $.ajax({
+        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+        method: "GET",
+        success: function(data){
+          var books = data.values;
+          books.shift(); 
+
+          var output = '';
+          $.each(books, function(index, book){
+            output += '<div class="book">';
+            output += '<a style="text-decoration: none;" href="view.html?title=' + encodeURIComponent(book[0]) + '">';
+            output += '<h3>' + book[0] + '</h3>'; // عنوان الكتاب
+            output += '<img src="' + book[1] + '" alt="غلاف الكتاب">'; // غلاف الكتاب
+            output += '</a>';
+            output += '<button class="view-book-btn">مراجعتي للكتاب</button>';
+            output += '</div>';
+          });
+
+          $('#results').html(output);
+
+          $('.view-book-btn').click(function(){
+            var bookTitle = $(this).prev().text();
+            var bookCover = $(this).prev().prev().attr('src');
+            var author = $(this).prev().data('author');
+            var category = $(this).prev().data('category');
+            var review = $(this).prev().data('review');
+            var summary = $(this).prev().data('summary');
+            window.location.href = 'view.html?title=' + encodeURIComponent(bookTitle) ;
+          });
+        }
+      });
+    });
+
+
+        
+        
+        
+        
+    </script>
+</body>
+</html>
