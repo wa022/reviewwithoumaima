@@ -29,7 +29,6 @@
       0% {
         transform: rotate(0deg);
       }
-
       100% {
         transform: rotate(360deg);
       }
@@ -129,44 +128,29 @@
       <tbody>
         <tr>
           <td style="text-align: center;border-color: transparent;" class="tg-0lax" rowspan="5"><img style="height: 400px;" id="book-cover" src="" alt="غلاف الكتاب"></td>
-          <td class="tg-0pky">
-            <p id="author-name"></p>
-          </td>
+          <td class="tg-0pky"><p id="author"></p></td>
+        </tr>
+        <tr>
+          <td class="tg-0pky"><p id="pages"></p></td>
+        </tr>
+        <tr>
+          <td class="tg-0pky"><p id="category"></p></td>
+        </tr>
+        <tr>
+          <td class="tg-0pky"><p id="rating"></p></td>
         </tr>
         <tr>
           <td class="tg-0pky">
-            <p id="pages"></p>
-          </td>
-        </tr>
-        <tr>
-          <td class="tg-0pky">
-            <p id="category"></p>
-          </td>
-        </tr>
-        <tr>
-          <td class="tg-0pky">
-            <p id="rating"></p>
-          </td>
-        </tr>
-        <tr>
-          <td class="tg-0pky">
-            <div id="rating-f">
-              <span class="star-rating"></span>
-            </div>
+            <div id="rating-f"><span class="star-rating"></span></div>
             <form id="visitorRatingForm" style="margin-top: 20px; text-align: center;" action="process_rating.php" method="POST">
               <input type="hidden" id="bookTitle" name="bookTitle">
               <input type="hidden" id="bookAuthor" name="bookAuthor">
               <div class="star-rating">
-                <input type="radio" id="star5" name="visitorRating" value="5">
-                <label for="star5">★</label>
-                <input type="radio" id="star4" name="visitorRating" value="4">
-                <label for="star4">★</label>
-                <input type="radio" id="star3" name="visitorRating" value="3">
-                <label for="star3">★</label>
-                <input type="radio" id="star2" name="visitorRating" value="2">
-                <label for="star2">★</label>
-                <input type="radio" id="star1" name="visitorRating" value="1">
-                <label for="star1">★</label>
+                <input type="radio" id="star5" name="visitorRating" value="5"><label for="star5">★</label>
+                <input type="radio" id="star4" name="visitorRating" value="4"><label for="star4">★</label>
+                <input type="radio" id="star3" name="visitorRating" value="3"><label for="star3">★</label>
+                <input type="radio" id="star2" name="visitorRating" value="2"><label for="star2">★</label>
+                <input type="radio" id="star1" name="visitorRating" value="1"><label for="star1">★</label>
               </div>
               <button style="margin-top: 10px;" type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
               <p id="sendingMessage" style="display:none;">رأيك يهمنا. شكرًا على المشاركة!</p>
@@ -216,17 +200,17 @@
             $('#book-cover').attr('src', foundBook[1]);
 
             // Display author
-            $('#author-name').text(foundBook[2]);
+            $('#author').text('' + foundBook[2]);
 
             // Display category
-            $('#category').text(foundBook[4]);
+            $('#category').text('' + foundBook[4]);
 
             // Display pages
-            $('#pages').text(foundBook[3]);
+            $('#pages').text('' + foundBook[3]);
 
             // Display review (if provided)
-            if (foundBook[8]) {
-              $('#review').text(foundBook[8]);
+            if (foundBook[7]) {
+              $('#review').text('' + foundBook[8]);
             } else {
               $('#review').text('لا توجد مراجعة حاليا.');
             }
@@ -244,7 +228,10 @@
             $('#rating').text(starsString);
 
             // Display summary
-            $('#summary').text(foundBook[7]);
+            $('#summary').text('' + foundBook[7]);
+
+            // Get the visitor rating value from column 10
+            var visitorRatingValue = parseInt(foundBook[10]);
 
             // Fetch visitor ratings from ratings.txt
             $.ajax({
