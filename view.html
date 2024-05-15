@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تفاصيل الكتاب</title>
+  <style>
+    /* CSS styles */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #f5f2e6; /* الخلفية البرتقالية */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #loading-screen img {
+      width: 30px;
+      height: 30px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .tg td,
+    .tg th {
+      border-color: black;
+      border-style: solid;
+      border-width: 1px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      overflow: hidden;
+      padding: 10px 5px;
+      word-break: normal;
+    }
+
+    .tg .tg-0pky {
+      border-color: inherit;
+      text-align: center;
+      vertical-align: top;
+    }
+
+    .tg .tg-0lax {
+      text-align: center;
+      vertical-align: top;
+    }
+
+    @media (min-width: 601px) {
+      .tg td:nth-child(1),
+      .tg th:nth-child(1) {
+        width: 30%;
+        text-align: right;
+      }
+
+      .tg td:nth-child(2),
+      .tg th:nth-child(2) {
+        width: 70%;
+        text-align: right;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .tg td,
+      .tg th {
+        display: block;
+        text-align: right;
+      }
+
+      .tg td:nth-child(odd),
+      .tg th:nth-child(odd) {
+        background-color: #f2f2f2;
+      }
+    }
+
+    #summary {
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-screen">
+    <img src="https://wa022.github.io/2028/loader.png" alt="جاري التحميل">
+  </div>
+
+  <div id="book-details" class="hidden">
+    <table style="width: 100%;border-color: transparent;" class="tg">
+      <thead>
+        <tr>
+          <th style="text-align: center;border-color: transparent;" class="tg-0lax">
+            <h2 id="book-title"></h2>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center;border-color: transparent;" class="tg-0lax" rowspan="5"><img style="height: 400px;" id="book-cover" src="" alt="غلاف الكتاب"></td>
+          <td class="tg-0pky"><p id="author"></p></td>
+        </tr>
+        <tr>
+          <td class="tg-0pky"><p id="pages"></p></td>
+        </tr>
+        <tr>
+          <td class="tg-0pky"><p id="category"></td>
+        </tr>
+        <tr>
+          <td class="tg-0pky"><p id="rating"></p></td>
+        </tr>
+        <tr>
+          <td class="tg-0pky">تقييم الزوار<p id="rating-f"><span class="star-rating"></span></p></td>
+        </tr>
+        <tr>
+          <td style="border-color: transparent;" class="tg-0lax" colspan="2">
+            <p id="summary"></p>
+          </td>
+        </tr>
+        <tr>
+          <td style="border-color: transparent;" class="tg-0lax" colspan="2">
+            <p id="review"></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container">
+    <div class="content">
+      <div class="user-details">
+        <form id="visitorRatingForm" style="text-align: right;" action="process_rating.php" method="POST">
+          <div class="input-box">
+            <input type="hidden" id="bookTitle" name="bookTitle">
+            <input type="hidden" id="author" name="author">
+            <label for="visitorRating" class="form-label">تقييم الزوار</label>
+            <input type="number" id="visitorRating" name="rating" min="1" max="5">
+            <button type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
+            <p id="feedbackMessage" style="display:none;">تم إرسال التقييم بنجاح!</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var urlParams = new URLSearchParams(window.location.search);
+      var bookTitle = decodeURIComponent(urlParams.get('title'));
+
+      $.ajax({
+        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+        method: "GET",
+        success: function (data) {
+          var books = data.values;
+          books.shift();
+
+          var foundBook = books.find(function (book) {
+            return book[0] === bookTitle;
+          });
+
+          if (foundBook) {
+            $('#book-title').text(foundBook[0]);
+            $('#book-cover').attr('src', foundBook[1]);
+            $('#author').text('' + foundBook[2]);
+            $('#category').text('' + foundBook[4]);
+            $('#pages').text('' + foundBook[3]);
+            if (foundBook[7]) {
+              $('#review').text('' + foundBook[8]);
+            } else {
+              $('#review').text('لا توجد مراجعة حاليا.');
+            }
+
+            var officialRating;
+            var officialRatingValue = parseInt(foundBook[6]);
+            var starsString = '';
+            for (var i = 0; i < officialRatingValue; i++) {
+              starsString += '⭐'; 
+            }
+            $('#rating').text(starsString);
+            $('#summary').text('' + foundBook[7]);
+
+            $.ajax({
+              url: "https://avndesa.000webhostapp.com/ratings.txt",
+              method: "GET",
+              success: function (ratingsData) {
+                var ratingsArray = ratingsData.split("\n").map(Number);
+                var sum = ratingsArray.reduce((acc, val) => acc + val, 0);
+                var averageRating = sum / ratingsArray.length;
+                var starRating = $('#rating-f .star-rating');
+                starRating.empty(); 
+
+                var maxRating = 5; 
+                var filledStars = Math.round((averageRating / maxRating) * 5);
+
+                for (var i = 0; i < filledStars; i++) {
+                  var star = $('<span>').addClass('star fa fa-star filled');
+                  starRating.append(star);
+                }
+              },
+              error: function () {
+                // يمكنك التعامل مع أي خطأ هنا
+              }
+            });
+
+            $('#bookTitle').val(foundBook[0]);
+            $('#author').val(foundBook[2]);
+
+            $('#loading-screen').fadeOut('slow', function () {
+              $('#book-details').fadeIn('slow');
+            });
+          } else {
+            $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
+            $('#loading-screen').fadeOut('slow');
+          }
+        },
+        error: function () {
+          $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
+          $('#loading-screen').fadeOut('slow');
+        }
+      });
+
+      $('#visitorRatingForm').submit(function (event) {
+        event.preventDefault();
+        $('#submitRating').hide();
+        $('#sendingMessage').show();
+        var formData = $(this).serialize();
+
+        $.ajax({
+          url: "process_rating.php",
+          method: "POST",
+          data: formData,
+          success: function (response) {
+            console.log("تم إرسال التقييم بنجاح.");
+            $('#sendingMessage').hide();
+            $('#feedbackMessage').show();
+          },
+          error: function (xhr, status, error) {
+            console.error("حدث خطأ أثناء إرسال التقييم:", error);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
