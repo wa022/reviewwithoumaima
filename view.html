@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <title>تفاصيل الكتاب</title>
+
+  <style>
+    /* أنماط شاشة التحميل */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #f5f2e6; /* الخلفية البرتقالية */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #loading-screen img {
+      width: 30px;
+      height: 30px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* أنماط تفاصيل الكتاب */
+    #book-details {
+      display: none; /* مخفي أولاً */
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* أنماط تقييم النجوم */
+    .star-rating {
+      display: inline-block;
+      width: 5em;
+      height: 1em;
+    }
+
+    .star-rating .star {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      background-image: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'); /* استبدال برابط URL الفعلي */
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .star-rating .star.filled {
+      color: gold; /* اللون للنجوم الممتلئة */
+    }
+
+    /* أنماط الصور الإضافية */
+    #additional-images {
+      margin-top: 20px;
+    }
+
+    #additional-images img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 10px;
+    }
+
+    .tg {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    .tg td,
+    .tg th {
+      border-color: black;
+      border-style: solid;
+      border-width: 1px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      overflow: hidden;
+      padding: 10px 5px;
+      word-break: normal;
+    }
+
+    .tg .tg-0pky {
+      border-color: inherit;
+      text-align: center;
+      vertical-align: top;
+    }
+
+    .tg .tg-0lax {
+      text-align: center;
+      vertical-align: top;
+    }
+
+    /* تعديل للتجاوب مع الشاشات الصغيرة */
+    @media (min-width: 601px) {
+      .tg td:nth-child(1),
+      .tg th:nth-child(1) {
+        width: 30%;
+        text-align: right;
+      }
+
+      .tg td:nth-child(2),
+      .tg th:nth-child(2) {
+        width: 70%;
+        text-align: right;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .tg td,
+      .tg th {
+        display: block;
+        text-align: right;
+      }
+
+      .tg td:nth-child(odd),
+      .tg th:nth-child(odd) {
+        background-color: #f2f2f2;
+      }
+    }
+
+    /* تنسيق المحتوى */
+    #summary {
+      white-space: pre-line;
+    }
+
+
+.star-rating .star {
+  font-size: 1.5em;
+  color: gray;
+  cursor: pointer;
+}
+
+.star-rating .star.filled {
+  color: gold;
+}
+
+
+
+  </style>
+
+</head>
+
+<body>
+ <!-- نموذج تقييم الزوار -->
+<div class="container">
+  <div class="content">
+    <div class="user-details">
+      <form id="visitorRatingForm" style="color: white; margin-left: 5%; margin-right: 5%; margin-bottom: 60px; margin-top: 50px; text-align: right;" action="https://avndesa.000webhostapp.com/process_rating.php" method="POST">
+        <div class="input-box">
+          <input type="hidden" id="bookTitle" name="bookTitle">
+          <input type="hidden" id="author" name="author">
+          <label style="color:black;" for="visitorRating" class="form-label">تقييم الزوار</label>
+          <div id="visitorStarRating" class="star-rating">
+            <span class="star fa fa-star" data-rating="1"></span>
+            <span class="star fa fa-star" data-rating="2"></span>
+            <span class="star fa fa-star" data-rating="3"></span>
+            <span class="star fa fa-star" data-rating="4"></span>
+            <span class="star fa fa-star" data-rating="5"></span>
+          </div>
+          <input type="hidden" id="visitorRating" name="visitorRating" required>
+          <button style="color:black;" type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
+          <p id="sendingMessage" style="display:none;color:black;">رأيك يهمنا. شكرًا على المشاركة!</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+   $(document).ready(function () {
+  // Retrieve book title from URL parameters
+  var urlParams = new URLSearchParams(window.location.search);
+  var bookTitle = decodeURIComponent(urlParams.get('title'));
+
+  // Fetch book data from the specified data source
+  $.ajax({
+    url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+    method: "GET",
+    success: function (data) {
+      var books = data.values;
+      books.shift();
+
+      // Find the book using its title
+      var foundBook = books.find(function (book) {
+        return book[0] === bookTitle;
+      });
+
+      // Display book details if found
+      if (foundBook) {
+        // Display book title
+        $('#book-title').text(foundBook[0]);
+
+        // Display book cover (replace with actual image URL)
+        $('#book-cover').attr('src', foundBook[1]);
+
+        // Display author
+        $('#author').text('' + foundBook[2]);
+
+        // Display category
+        $('#category').text('' + foundBook[4]);
+
+        // Display pages
+        $('#pages').text('' + foundBook[3]);
+
+        // Display review (if provided)
+        if (foundBook[7]) {
+          $('#review').text('' + foundBook[8]);
+        } else {
+          $('#review').text('لا توجد مراجعة حاليا.');
+        }
+
+        // Get the visitor rating value from column 10
+        var visitorRatingValue = parseInt(foundBook[10]);
+
+        // Create and display the visitor star rating
+        var visitorStarRating = $('#rating-f .star-rating');
+        visitorStarRating.empty(); // Clear any existing stars
+
+        for (var i = 1; i <= visitorRatingValue; i++) {
+          var star = $('<span>').addClass('star fa fa-star filled');
+          visitorStarRating.append(star);
+        }
+
+        // Display summary
+        $('#summary').text('' + foundBook[7]);
+
+        // Get the official rating value from column 6
+        var officialRatingValue = parseInt(foundBook[6]);
+
+        // Create and display the official star rating
+        var officialStarRating = $('#rating .star-rating');
+        officialStarRating.empty(); // Clear any existing stars
+
+        for (var i = 1; i <= officialRatingValue; i++) {
+          var star = $('<span>').addClass('star fa fa-star filled');
+          officialStarRating.append(star);
+        }
+
+        // Get the number of additional images from column 9
+        var numImages = parseInt(foundBook[9]);
+
+        // Create and display the additional images container
+        var imageContainer = $('#additional-images');
+        imageContainer.empty(); // Clear any existing images
+
+        // Add the specified number of images (replace with actual image URL)
+        for (var i = 0; i < numImages; i++) {
+          var image = $('<img>');
+          image.attr('src', 'https://www.wheeliebinnumber.co.uk/wp-content/uploads/2016/09/O-1.jpg'); // Replace with actual image URL
+          image.css('width', '515px');
+          image.css('height', '515px');
+          image.css('margin-bottom', '10px');
+          imageContainer.append(image);
+        }
+
+        // Set hidden input values
+        $('#bookTitle').val(foundBook[0]);
+        $('#author').val(foundBook[2]);
+
+        // Hide loading screen and fade in book details
+        $('#loading-screen').fadeOut('slow', function () {
+          $('#book-details').fadeIn('slow');
+        });
+      } else {
+        // Handle book not found case
+        $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
+        $('#loading-screen').fadeOut('slow');
+      }
+    },
+    error: function () {
+      // Handle errors during data fetching
+      $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
+      $('#loading-screen').fadeOut('slow');
+    }
+  });
+
+  // Handle visitor star rating click
+  $('#visitorStarRating .star').on('click', function() {
+    var rating = $(this).data('rating');
+    $('#visitorRating').val(rating);
+
+    $('#visitorStarRating .star').each(function() {
+      if ($(this).data('rating') <= rating) {
+        $(this).addClass('filled');
+      } else {
+        $(this).removeClass('filled');
+      }
+    });
+  });
+
+  // Handle visitor rating form submission
+  $('#visitorRatingForm').submit(function (event) {
+    event.preventDefault();
+    $('#submitRating').hide();
+    $('#sendingMessage').show();
+    var formData = $(this).serialize();
+    // Send the rating
+    $.ajax({
+      url: "https://avndesa.000webhostapp.com/process_rating.php",
+      method: "POST",
+      data: formData,
+      success: function (response) {
+        // Handle success response if needed
+        console.log("Rating submitted successfully.");
+        $('#sendingMessage').hide();
+        $('#feedbackMessage').show();
+      },
+      error: function (xhr, status, error) {
+        // Handle error response if needed
+        console.error("Error submitting rating:", error);
+        // لا حاجة لعرض رسالة الخطأ
+      }
+    });
+  });
+});
+
+  </script>
+</body>
+
+</html>
