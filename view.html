@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تفاصيل الكتاب</title>
+  <style>
+    /* CSS styles */
+    /* أضف أسلوب العرض هنا */
+  </style>
+</head>
+<body>
+  <div id="loading-screen">
+    <img src="https://wa022.github.io/2028/loader.png" alt="جاري التحميل">
+  </div>
+
+  <div id="book-details" class="hidden">
+    <!-- إضافة تفاصيل الكتاب هنا -->
+  </div>
+
+  <div class="container">
+    <div class="content">
+      <div class="user-details">
+        <form id="visitorRatingForm" style="text-align: right;" action="process_rating.php" method="POST">
+          <div class="input-box">
+            <input type="hidden" id="bookTitle" name="bookTitle">
+            <!-- إضافة حقل التقييم هنا -->
+            <input type="hidden" id="author" name="author">
+            <label for="visitorRating" class="form-label">تقييم الزوار</label>
+            <input type="number" id="visitorRating" name="visitorRating" min="1" max="5">
+            <button type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
+            <p id="feedbackMessage" style="display:none;">تم إرسال التقييم بنجاح!</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var urlParams = new URLSearchParams(window.location.search);
+      var bookTitle = decodeURIComponent(urlParams.get('title'));
+
+      $.ajax({
+        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+        method: "GET",
+        success: function (data) {
+          var books = data.values;
+          books.shift();
+
+          var foundBook = books.find(function (book) {
+            return book[0] === bookTitle;
+          });
+
+          if (foundBook) {
+            $('#book-title').text(foundBook[0]);
+            $('#book-cover').attr('src', foundBook[1]);
+            $('#author').text('' + foundBook[2]);
+            $('#category').text('' + foundBook[4]);
+            $('#pages').text('' + foundBook[3]);
+            if (foundBook[7]) {
+              $('#review').text('' + foundBook[8]);
+            } else {
+              $('#review').text('لا توجد مراجعة حاليا.');
+            }
+
+            var officialRating;
+            var officialRatingValue = parseInt(foundBook[6]);
+            var starsString = '';
+            for (var i = 0; i < officialRatingValue; i++) {
+              starsString += '⭐'; 
+            }
+            $('#rating').text(starsString);
+            $('#summary').text('' + foundBook[7]);
+
+            $.ajax({
+              url: "https://avndesa.000webhostapp.com/ratings.txt",
+              method: "GET",
+              success: function (ratingsData) {
+                var ratingsArray = ratingsData.split("\n").map(Number);
+                var sum = ratingsArray.reduce((acc, val) => acc + val, 0);
+                var averageRating = sum / ratingsArray.length;
+                var starRating = $('#rating-f .star-rating');
+                starRating.empty(); 
+
+                var maxRating = 5; 
+                var filledStars = Math.round((averageRating / maxRating) * 5);
+
+                for (var i = 0; i < filledStars; i++) {
+                  var star = $('<span>').addClass('star fa fa-star filled');
+                  starRating.append(star);
+                }
+              },
+              error: function () {
+                // يمكنك التعامل مع أي خطأ هنا
+              }
+            });
+
+            $('#bookTitle').val(foundBook[0]);
+            $('#author').val(foundBook[2]);
+
+            $('#loading-screen').fadeOut('slow', function () {
+              $('#book-details').fadeIn('slow');
+            });
+          } else {
+            $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
+            $('#loading-screen').fadeOut('slow');
+          }
+        },
+        error: function () {
+          $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
+          $('#loading-screen').fadeOut('slow');
+        }
+      });
+
+      $('#visitorRatingForm').submit(function (event) {
+        event.preventDefault();
+        $('#submitRating').hide();
+        $('#sendingMessage').show();
+        var formData = $(this).serialize();
+
+        $.ajax({
+          url: "process_rating.php",
+          method: "POST",
+          data: formData,
+          success: function (response) {
+            console.log("تم إرسال التقييم بنجاح.");
+            $('#sendingMessage').hide();
+            $('#feedbackMessage').show();
+          },
+          error: function (xhr, status, error) {
+            console.error("حدث خطأ أثناء إرسال التقييم:", error);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
