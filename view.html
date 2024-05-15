@@ -130,7 +130,7 @@
         <tr>
           <td style="text-align: center;border-color: transparent;" class="tg-0lax" rowspan="5"><img style="height: 400px;" id="book-cover" src="" alt="غلاف الكتاب"></td>
           <td class="tg-0pky">
-            <p id="author"></p>
+            <p id="author-name"></p>
           </td>
         </tr>
         <tr>
@@ -155,7 +155,7 @@
             </div>
             <form id="visitorRatingForm" style="margin-top: 20px; text-align: center;" action="process_rating.php" method="POST">
               <input type="hidden" id="bookTitle" name="bookTitle">
-              <input type="hidden" id="author" name="author">
+              <input type="hidden" id="bookAuthor" name="bookAuthor">
               <div class="star-rating">
                 <input type="radio" id="star5" name="visitorRating" value="5">
                 <label for="star5">★</label>
@@ -216,7 +216,7 @@
             $('#book-cover').attr('src', foundBook[1]);
 
             // Display author
-            $('#author').text(foundBook[2]);
+            $('#author-name').text(foundBook[2]);
 
             // Display category
             $('#category').text(foundBook[4]);
@@ -246,9 +246,6 @@
             // Display summary
             $('#summary').text(foundBook[7]);
 
-            // Get the visitor rating value from column 10
-            var visitorRatingValue = parseInt(foundBook[10]);
-
             // Fetch visitor ratings from ratings.txt
             $.ajax({
               url: "https://avndesa.000webhostapp.com/ratings.txt",
@@ -277,7 +274,7 @@
 
             // Set hidden input values
             $('#bookTitle').val(foundBook[0]);
-            $('#author').val(foundBook[2]);
+            $('#bookAuthor').val(foundBook[2]);
 
             // Hide loading screen and fade in book details
             $('#loading-screen').fadeOut('slow', function () {
