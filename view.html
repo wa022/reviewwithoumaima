@@ -142,7 +142,7 @@
         <tr>
           <td class="tg-0pky">
             <div id="rating-f"><span class="star-rating"></span></div>
-            <form id="visitorRatingForm" style="margin-top: 20px; text-align: center;" action="https://avndesa.000webhostapp.com/process_rating.php" method="POST">
+            <form id="visitorRatingForm" style="margin-top: 20px; text-align: center;" action="process_rating.php" method="POST">
               <input type="hidden" id="bookTitle" name="bookTitle">
               <input type="hidden" id="author" name="author">
               <div class="star-rating">
@@ -180,7 +180,8 @@
 
       // Fetch book data from the specified data source
       $.ajax({
-        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZB
+    dYU",
         method: "GET",
         success: function (data) {
           var books = data.values;
@@ -288,7 +289,7 @@
         var formData = $(this).serialize();
         // Send the rating
         $.ajax({
-          url: "https://avndesa.000webhostapp.com/process_rating.php",
+          url: "process_rating.php",
           method: "POST",
           data: formData,
           success: function (response) {
