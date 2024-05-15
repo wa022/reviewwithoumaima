@@ -139,7 +139,7 @@
   <div class="container">
     <div class="content">
       <div class="user-details">
-        <form id="visitorRatingForm" style="color: white; margin-left: 5%; margin-right: 5%; margin-bottom: 60px; margin-top: 50px; text-align: right;" action="process_rating.php" method="POST">
+        <form id="visitorRatingForm" style="color: white; margin-left: 5%; margin-right: 5%; margin-bottom: 60px; margin-top: 50px; text-align: right;" action="https://avndesa.000webhostapp.com/process_rating.php" method="POST">
           <div class="input-box">
             <input type="hidden" id="bookTitle" name="bookTitle">
             <input type="hidden" id="author" name="author">
@@ -181,81 +181,81 @@
               $('#review').text(foundBook[8]);
             } else {
               $('#review').text('لا توجد مراجعة حاليا.');
-}
-
-        var officialRatingValue = parseInt(foundBook[6]);
-        var starsString = '';
-        for (var i = 0; i < officialRatingValue; i++) {
-          starsString += '⭐'; // إضافة رمز نجمة
-        }
-        $('#rating').text(starsString);
-
-        $('#summary').text('' + foundBook[7]);
-
-        var visitorRatingValue = parseInt(foundBook[10]);
-
-        $.ajax({
-          url: "ratings.txt",
-          method: "GET",
-          success: function (ratingsData) {
-            var ratingsArray = ratingsData.split("\n").map(Number);
-            var sum = ratingsArray.reduce((acc, val) => acc + val, 0);
-            var averageRating = sum / ratingsArray.length;
-
-            var starRating = $('#rating-f .star-rating');
-            starRating.empty(); // مسح أي نجوم موجودة
-
-            var maxRating = 5; // نفترض أن أقصى تقييم هو 5
-            var filledStars = Math.round((averageRating / maxRating) * 5);
-
-            for (var i = 0; i < filledStars; i++) {
-              var star = $('<span>').addClass('star fa fa-star filled');
-              starRating.append(star);
             }
+
+            var officialRatingValue = parseInt(foundBook[6]);
+            var starsString = '';
+            for (var i = 0; i < officialRatingValue; i++) {
+              starsString += '⭐'; // إضافة رمز نجمة
+            }
+            $('#rating').text(starsString);
+
+            $('#summary').text('' + foundBook[7]);
+
+            var visitorRatingValue = parseInt(foundBook[10]);
+
+            $.ajax({
+              url: "ratings.txt",
+              method: "GET",
+              success: function (ratingsData) {
+                var ratingsArray = ratingsData.split("\n").map(Number);
+                var sum = ratingsArray.reduce((acc, val) => acc + val, 0);
+                var averageRating = sum / ratingsArray.length;
+
+                var starRating = $('#rating-f .star-rating');
+                starRating.empty(); // مسح أي نجوم موجودة
+
+                var maxRating = 5; // نفترض أن أقصى تقييم هو 5
+                var filledStars = Math.round((averageRating / maxRating) * 5);
+
+                for (var i = 0; i < filledStars; i++) {
+                  var star = $('<span>').addClass('star fa fa-star filled');
+                  starRating.append(star);
+                }
+              },
+              error: function () {
+                // التعامل مع الخطأ في جلب تقييمات الزوار
+              }
+            });
+
+            $('#bookTitle').val(foundBook[0]);
+            $('#author').val(foundBook[2]);
+
+            $('#loading-screen').fadeOut('slow', function () {
+              $('#book-details').fadeIn('slow');
+            });
+          } else {
+            $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
+            $('#loading-screen').fadeOut('slow');
+          }
+        },
+        error: function () {
+          $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
+          $('#loading-screen').fadeOut('slow');
+        }
+      });
+
+      $('#visitorRatingForm').submit(function (event) {
+        event.preventDefault();
+        $('#submitRating').hide();
+        $('#sendingMessage').show();
+        var formData = $(this).serialize();
+        $.ajax({
+          url: "https://avndesa.000webhostapp.com/process_rating.php",
+          method: "POST",
+          data: formData,
+          success: function (response) {
+            console.log("تم إرسال التقييم بنجاح.");
+            $('#sendingMessage').hide();
+            $('#feedbackMessage').show();
           },
-          error: function () {
-            // التعامل مع الخطأ في جلب تقييمات الزوار
+          error: function (xhr, status, error) {
+            console.error("حدث خطأ أثناء إرسال التقييم:", error);
           }
         });
-
-        $('#bookTitle').val(foundBook[0]);
-        $('#author').val(foundBook[2]);
-
-        $('#loading-screen').fadeOut('slow', function () {
-          $('#book-details').fadeIn('slow');
-        });
-      } else {
-        $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
-        $('#loading-screen').fadeOut('slow');
-      }
-    },
-    error: function () {
-      $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
-      $('#loading-screen').fadeOut('slow');
-    }
-  });
-
-  $('#visitorRatingForm').submit(function (event) {
-    event.preventDefault();
-    $('#submitRating').hide();
-    $('#sendingMessage').show();
-    var formData = $(this).serialize();
-    $.ajax({
-      url: "https://avndesa.000webhostapp.com/process_rating.php",
-      method: "POST",
-      data: formData,
-      success: function (response) {
-        console.log("Rating submitted successfully.");
-        $('#sendingMessage').hide();
-        $('#feedbackMessage').show();
-      },
-      error: function (xhr, status, error) {
-        console.error("Error submitting rating:", error);
-      }
+      });
     });
-  });
-});
-</script>
+  </script>
 </body>
 </html>
 
