@@ -140,7 +140,22 @@
           <td class="tg-0pky"><p id="rating"></p></td>
         </tr>
         <tr>
-          <td class="tg-0pky">تقييم الزوار<p id="rating-f"><span class="star-rating"></span></p></td>
+          <td class="tg-0pky">
+            <div id="rating-f"><span class="star-rating"></span></div>
+            <form id="visitorRatingForm" style="margin-top: 20px; text-align: center;" action="https://avndesa.000webhostapp.com/process_rating.php" method="POST">
+              <input type="hidden" id="bookTitle" name="bookTitle">
+              <input type="hidden" id="author" name="author">
+              <div class="star-rating">
+                <input type="radio" id="star5" name="visitorRating" value="5"><label for="star5">★</label>
+                <input type="radio" id="star4" name="visitorRating" value="4"><label for="star4">★</label>
+                <input type="radio" id="star3" name="visitorRating" value="3"><label for="star3">★</label>
+                <input type="radio" id="star2" name="visitorRating" value="2"><label for="star2">★</label>
+                <input type="radio" id="star1" name="visitorRating" value="1"><label for="star1">★</label>
+              </div>
+              <button style="margin-top: 10px;" type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
+              <p id="sendingMessage" style="display:none;">رأيك يهمنا. شكرًا على المشاركة!</p>
+            </form>
+          </td>
         </tr>
         <tr>
           <td style="border-color: transparent;" class="tg-0lax" colspan="2">
@@ -154,29 +169,6 @@
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <div class="container">
-    <div class="content">
-      <div class="user-details">
-        <form id="visitorRatingForm" style="color: white; margin-left: 5%; margin-right: 5%; margin-bottom: 60px; margin-top: 50px; text-align: right;" action="https://avndesa.000webhostapp.com/process_rating.php" method="POST">
-          <div class="input-box">
-            <input type="hidden" id="bookTitle" name="bookTitle">
-            <input type="hidden" id="author" name="author">
-            <label style="color:black;" for="visitorRating" class="form-label">تقييم الزوار</label>
-            <div class="star-rating">
-              <input type="radio" id="star5" name="visitorRating" value="5"><label for="star5">★</label>
-              <input type="radio" id="star4" name="visitorRating" value="4"><label for="star4">★</label>
-              <input type="radio" id="star3" name="visitorRating" value="3"><label for="star3">★</label>
-              <input type="radio" id="star2" name="visitorRating" value="2"><label for="star2">★</label>
-              <input type="radio" id="star1" name="visitorRating" value="1"><label for="star1">★</label>
-            </div>
-            <button style="color:black;" type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
-            <p id="sendingMessage" style="display:none;color:black;">رأيك يهمنا. شكرًا على المشاركة!</p>
-          </div>
-        </form>
-      </div>
-    </div>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
