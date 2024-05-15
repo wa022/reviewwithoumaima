@@ -2,310 +2,317 @@
 <html lang="ar" dir="rtl">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تفاصيل الكتاب</title>
-  <style>
-    /* CSS styles */
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #f5f2e6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الكتاب</title>
+    <style>
+        /* CSS styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f2e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    #loading-screen img {
-      width: 30px;
-      height: 30px;
-      animation: spin 2s linear infinite;
-    }
+        #loading-screen img {
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+        }
 
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
 
-    .tg td,
-    .tg th {
-      border-color: black;
-      border-style: solid;
-      border-width: 1px;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      overflow: hidden;
-      padding: 10px 5px;
-      word-break: normal;
-    }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
-    .tg .tg-0pky {
-      border-color: inherit;
-      text-align: center;
-      vertical-align: top;
-    }
+        .tg td,
+        .tg th {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+        }
 
-    .tg .tg-0lax {
-      text-align: center;
-      vertical-align: top;
-    }
+        .tg .tg-0pky {
+            border-color: inherit;
+            text-align: center;
+            vertical-align: top;
+        }
 
-    @media (min-width: 601px) {
-      .tg td:nth-child(1),
-      .tg th:nth-child(1) {
-        width: 30%;
-        text-align: right;
-      }
+        .tg .tg-0lax {
+            text-align: center;
+            vertical-align: top;
+        }
 
-      .tg td:nth-child(2),
-      .tg th:nth-child(2) {
-        width: 70%;
-        text-align: right;
-      }
-    }
+        @media (min-width: 601px) {
+            .tg td:nth-child(1),
+            .tg th:nth-child(1) {
+                width: 30%;
+                text-align: right;
+            }
 
-    @media (max-width: 600px) {
-      .tg td,
-      .tg th {
-        display: block;
-        text-align: right;
-      }
+            .tg td:nth-child(2),
+            .tg th:nth-child(2) {
+                width: 70%;
+                text-align: right;
+            }
+        }
 
-      .tg td:nth-child(odd),
-      .tg th:nth-child(odd) {
-        background-color: #f2f2f2;
-      }
-    }
+        @media (max-width: 600px) {
+            .tg td,
+            .tg th {
+                display: block;
+                text-align: right;
+            }
 
-    #summary {
-      white-space: pre-line;
-    }
+            .tg td:nth-child(odd),
+            .tg th:nth-child(odd) {
+                background-color: #f2f2f2;
+            }
+        }
 
-    /* Star rating CSS */
-    .star-rating {
-      direction: rtl;
-      display: inline-block;
-    }
+        #summary {
+            white-space: pre-line;
+        }
 
-    .star-rating input {
-      display: none;
-    }
+        /* Star rating CSS */
+        .star-rating {
+            direction: rtl;
+            display: inline-block;
+        }
 
-    .star-rating label {
-      font-size: 2em;
-      color: grey;
-      cursor: pointer;
-    }
+        .star-rating input {
+            display: none;
+        }
 
-    .star-rating input:checked~label,
-    .star-rating input:checked~label~label {
-      color: gold;
-    }
-  </style>
+        .star-rating label {
+            font-size: 2em;
+            color: grey;
+            cursor: pointer;
+        }
+
+        .star-rating input:checked~label,
+        .star-rating input:checked~label~label {
+            color: gold;
+        }
+    </style>
 </head>
 
 <body>
-  <div id="loading-screen">
-    <img src="https://wa022.github.io/2028/loader.png" alt="جاري التحميل">
-  </div>
+    <div id="loading-screen">
+        <img src="https://wa022.github.io/2028/loader.png" alt="جاري التحميل">
+    </div>
 
-  <div id="book-details" class="hidden">
-    <table style="width: 100%;border-color: transparent;" class="tg">
-      <thead>
-        <tr>
-          <th style="text-align: center;border-color: transparent;" class="tg-0lax">
-            <h2 id="book-title"></h2>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="text-align: center;border-color: transparent;" class="tg-0lax" rowspan="5"><img style="height: 400px;" id="book-cover" src="" alt="غلاف الكتاب"></td>
-          <td class="tg-0pky"><p id="author"></p></td>
-        </tr>
-        <tr>
-          <td class="tg-0pky"><p id="pages"></p></td>
-        </tr>
-        <tr>
-          <td class="tg-0pky"><p id="category"></p></td>
-        </tr>
-        <tr>
-          <td class="tg-0pky"><p id="rating"></p></td>
-        </tr>
-        <tr>
-          <td class="tg-0pky">
-            <div id="rating-f"><span class="star-rating"></span></div>
-            <form id="visitorRatingForm" style="margin-top: 20px; text-align: center;" action="process_rating.php" method="POST">
-              <input type="hidden" id="bookTitle" name="bookTitle">
-              <input type="hidden" id="bookAuthor" name="bookAuthor">
-              <div class="star-rating">
-                <input type="radio" id="star5" name="visitorRating" value="5"><label for="star5">★</label>
-                <input type="radio" id="star4" name="visitorRating" value="4"><label for="star4">★</label>
-                <input type="radio" id="star3" name="visitorRating" value="3"><label for="star3">★</label>
-                <input type="radio" id="star2" name="visitorRating" value="2"><label for="star2">★</label>
-                <input type="radio" id="star1" name="visitorRating" value="1"><label for="star1">★</label>
-              </div>
-              <button style="margin-top: 10px;" type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
-              <p id="sendingMessage" style="display:none;">رأيك يهمنا. شكرًا على المشاركة!</p>
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td style="border-color: transparent;" class="tg-0lax" colspan="2">
-            <p id="summary"></p>
-          </td>
-        </tr>
-        <tr>
-          <td style="border-color: transparent;" class="tg-0lax" colspan="2">
-            <p id="review"></p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div id="book-details" class="hidden">
+        <table style="width: 100%;border-color: transparent;" class="tg">
+            <thead>
+                <tr>
+                    <th style="text-align: center;border-color: transparent;" class="tg-0lax">
+                        <h2 id="book-title"></h2>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;border-color: transparent;" class="tg-0lax" rowspan="5"><img
+                            style="height: 400px;" id="book-cover" src="" alt="غلاف الكتاب"></td>
+                    <td class="tg-0pky">
+                        <p id="author"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">
+                        <p id="pages"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">
+                        <p id="category"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">
+                        <p id="rating"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tg-0pky">
+                        <div id="rating-f"><span class="star-rating"></span></div>
+                        <form id="visitorRatingForm" style="margin-top: 20px; text-align: center;" action="process_rating.php"
+                            method="POST">
+                            <input type="hidden" id="bookTitle" name="bookTitle">
+                            <div class="star-rating">
+                                <input type="radio" id="star5" name="visitorRating" value="5"><label for="star5">★</label>
+                                <input type="radio" id="star4" name="visitorRating" value="4"><label for="star4">★</label>
+                                <input type="radio" id="star3" name="visitorRating" value="3"><label for="star3">★</label>
+                                <input type="radio" id="star2" name="visitorRating" value="2"><label for="star2">★</label>
+                                <input type="radio" id="star1" name="visitorRating" value="1"><label for="star1">★</label>
+                            </div>
+                            <button style="margin-top: 10px;" type="submit" class="btn btn-primary" id="submitRating">إرسال
+                                التقييم</button>
+                            <p id="sendingMessage" style="display:none;">رأيك يهمنا. شكرًا على المشاركة!</p>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-color: transparent;" class="tg-0lax" colspan="2">
+                        <p id="summary"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-color: transparent;" class="tg-0lax" colspan="2">
+                        <p id="review"></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      // Retrieve book title from URL parameters
-      var urlParams = new URLSearchParams(window.location.search);
-      var bookTitle = decodeURIComponent(urlParams.get('title'));
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Retrieve book title from URL parameters
+            var urlParams = new URLSearchParams(window.location.search);
+            var bookTitle = decodeURIComponent(urlParams.get('title'));
 
-      // Fetch book data from the specified data source
-      $.ajax({
-        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
-        method: "GET",
-        success: function (data) {
-          var books = data.values;
-          books.shift();
-
-          // Find the book using its title
-          var foundBook = books.find(function (book) {
-            return book[0] === bookTitle;
-          });
-
-          // Display book details if found
-          if (foundBook) {
-            // Display book title
-            $('#book-title').text(foundBook[0]);
-
-            // Display book cover (replace with actual image URL)
-            $('#book-cover').attr('src', foundBook[1]);
-
-            // Display author
-            $('#author').text('' + foundBook[2]);
-
-            // Display category
-            $('#category').text('' + foundBook[4]);
-
-            // Display pages
-            $('#pages').text('' + foundBook[3]);
-
-            // Display review (if provided)
-            if (foundBook[7]) {
-              $('#review').text('' + foundBook[8]);
-            } else {
-              $('#review').text('لا توجد مراجعة حاليا.');
-            }
-
-            // Get the official rating value from column 6
-            var officialRatingValue = parseInt(foundBook[6]);
-
-            // Create a string with stars based on the rating value
-            var starsString = '';
-            for (var i = 0; i < officialRatingValue; i++) {
-              starsString += '⭐'; // Add a star character
-            }
-
-            // Display the stars string in the rating element
-            $('#rating').text(starsString);
-
-            // Display summary
-            $('#summary').text('' + foundBook[7]);
-
-            // Get the visitor rating value from column 10
-            var visitorRatingValue = parseInt(foundBook[10]);
-
-            // Fetch visitor ratings from ratings.txt
+            // Fetch book data from the specified data source
             $.ajax({
-              url: "https://avndesa.000webhostapp.com/ratings.txt",
-              method: "GET",
-              success: function (ratingsData) {
-                var ratingsArray = ratingsData.split("\n").map(Number);
-                var sum = ratingsArray.reduce((acc, val) => acc + val, 0);
-                var averageRating = sum / ratingsArray.length;
+                url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+                method: "GET",
+                success: function (data) {
+                    var books = data.values;
+                    books.shift();
 
-                // Calculate number of stars to display based on the average rating
-                var starRating = $('#rating-f .star-rating');
-                starRating.empty(); // Clear any existing stars
+                    // Find the book using its title
+                    var foundBook = books.find(function (book) {
+                        return book[0] === bookTitle;
+                    });
 
-                var maxRating = 5; // Assuming maximum rating is 5
-                var filledStars = Math.round((averageRating / maxRating) * 5);
+                    // Display book details if found
+                    if (foundBook) {
+                        // Display book title
+                        $('#book-title').text(foundBook[0]);
 
-                for (var i = 0; i < filledStars; i++) {
-                  var star = $('<span>').addClass('star fa fa-star filled');
-                  starRating.append(star);
+                        // Display book cover (replace with actual image URL)
+                        $('#book-cover').attr('src', foundBook[1]);
+
+                        // Display author
+                        $('#author').text('' + foundBook[2]);
+
+                        // Display category
+                        $('#category').text('' + foundBook[4]);
+
+                        // Display pages
+                        $('#pages').text('' + foundBook[3]);
+
+                        // Display review (if provided)
+                        if (foundBook[7]) {
+                            $('#review').text('' + foundBook[8]);
+                        } else {
+                            $('#review').text('لا توجد مراجعة حاليا.');
+                        }
+
+                        // Get the official rating value from column 6
+                        var officialRatingValue = parseInt(foundBook[6]);
+
+                        // Create a string with stars based on the rating value
+                        var starsString = '';
+                        for (var i = 0; i < officialRatingValue; i++) {
+                            starsString += '⭐'; // Add a star character
+                        }
+
+                        // Display the stars string in the rating element
+                        $('#rating').text(starsString);
+
+                        // Display summary
+                        $('#summary').text('' + foundBook[7]);
+
+                        // Fetch visitor ratings from ratings.txt
+                        $.ajax({
+                            url: "https://avndesa.000webhostapp.com/ratings.txt",
+                            method: "GET",
+                            success: function (ratingsData) {
+                                var ratingsArray = ratingsData.split("\n").map(Number);
+                                var sum = ratingsArray.reduce((acc, val) => acc + val, 0);
+                                var averageRating = sum / ratingsArray.length;
+
+                                // Calculate number of stars to display based on the average rating
+                                var starRating = $('#rating-f .star-rating');
+                                starRating.empty(); // Clear any existing stars
+
+                                var maxRating = 5; // Assuming maximum rating is 5
+                                var filledStars = Math.round((averageRating / maxRating) * 5);
+
+                                for (var i = 0; i < filledStars; i++) {
+                                    var star = $('<span>').addClass('star fa fa-star filled');
+                                    starRating.append(star);
+                                }
+                            },
+                            error: function () {
+                                // Handle error in fetching visitor ratings
+                            }
+                        });
+
+                        // Set hidden input values
+                        $('#bookTitle').val(foundBook[0]);
+
+                        // Hide loading screen and fade in book details
+                        $('#loading-screen').fadeOut('slow', function () {
+                            $('#book-details').fadeIn('slow');
+                        });
+                    } else {
+                        // Handle book not found case
+                        $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
+                        $('#loading-screen').fadeOut('slow');
+                    }
+                },
+                error: function () {
+                    // Handle errors during data fetching
+                    $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
+                    $('#loading-screen').fadeOut('slow');
                 }
-              },
-              error: function () {
-                // Handle error in fetching visitor ratings
-              }
             });
 
-            // Set hidden input values
-            $('#bookTitle').val(foundBook[0]);
-            $('#bookAuthor').val(foundBook[2]);
-
-            // Hide loading screen and fade in book details
-            $('#loading-screen').fadeOut('slow', function () {
-              $('#book-details').fadeIn('slow');
+            // Handle visitor rating form submission
+            $('#visitorRatingForm').submit(function (event) {
+                event.preventDefault();
+                $('#submitRating').hide();
+                $('#sendingMessage').show();
+                var formData = $(this).serialize();
+                // Send the rating
+                $.ajax({
+                    url: "process_rating.php",
+                    method: "POST",
+                    data: formData,
+                    success: function (response) {
+                        // Handle success response if needed
+                        console.log("Rating submitted successfully.");
+                        $('#sendingMessage').hide();
+                        $('#feedbackMessage').show();
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error response if needed
+                        console.error("Error submitting rating:", error);
+                        // لا حاجة لعرض رسالة الخطأ
+                    }
+                });
             });
-          } else {
-            // Handle book not found case
-            $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
-            $('#loading-screen').fadeOut('slow');
-          }
-        },
-        error: function () {
-          // Handle errors during data fetching
-          $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
-          $('#loading-screen').fadeOut('slow');
-        }
-      });
-
-      // Handle visitor rating form submission
-      $('#visitorRatingForm').submit(function (event) {
-        event.preventDefault();
-        $('#submitRating').hide();
-        $('#sendingMessage').show();
-        var formData = $(this).serialize();
-        // Send the rating
-        $.ajax({
-          url: "process_rating.php",
-          method: "POST",
-          data: formData,
-          success: function (response) {
-            // Handle success response if needed
-            console.log("Rating submitted successfully.");
-            $('#sendingMessage').hide();
-            $('#feedbackMessage').show();
-          },
-          error: function (xhr, status, error) {
-            // Handle error response if needed
-            console.error("Error submitting rating:", error);
-            // لا حاجة لعرض رسالة الخطأ
-          }
         });
-      });
-    });
-  </script>
+    </script>
 </body>
 
 </html>
