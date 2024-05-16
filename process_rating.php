@@ -13,6 +13,7 @@ $ratings = json_decode($current, true);
 // إضافة التقييم الجديد إلى المصفوفة
 $ratings[] = array('bookTitle' => $bookTitle, 'visitorRating' => $visitorRating);
 
+
 // تحويل المصفوفة إلى JSON
 $newJsonString = json_encode($ratings);
 
