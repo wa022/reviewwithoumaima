@@ -147,13 +147,8 @@
           </td>
         </tr>
         <tr>
-
-
-
           <td style="border-color: transparent;" class="tg-0lax" colspan="2">
-
-                    <label style="color:black;" for="visitorRating" class="form-label">شاركنا تقييمك</label>
-
+            <label style="color:black;" for="visitorRating" class="form-label">شاركنا تقييمك</label>
             <div class="container">
               <div class="content">
                 <div class="user-details">
@@ -177,12 +172,9 @@
           </td>
         </tr>
         <tr>
-
           <td style="border-color: transparent;" class="tg-0lax" colspan="2">
             <h3>الملخص</h3>
             <p id="summary"></p>
-
-
             <h3>تقييمي الشخصي</h3>
             <p id="rating"></p>
             <p id="review"></p>
@@ -192,12 +184,9 @@
     </table>
   </div>
 
-
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
-     
       var urlParams = new URLSearchParams(window.location.search);
       var bookTitle = decodeURIComponent(urlParams.get('title'));
 
@@ -228,13 +217,11 @@
             var officialRatingValue = parseInt(foundBook[6]);
             var starsString = '';
             for (var i = 0; i < officialRatingValue; i++) {
-              starsString += '⭐'; // إضافة رمز نجمة
+              starsString += '⭐';
             }
             $('#rating').text(starsString);
 
             $('#summary').text('' + foundBook[7]);
-
-            var visitorRatingValue = parseInt(foundBook[10]);
 
             $.ajax({
               url: "https://avndesa.000webhostapp.com/ratings.json",
@@ -250,9 +237,9 @@
                   var averageRating = sum / bookRatings.length;
 
                   var starRating = $('#rating-f .star-rating');
-                  starRating.empty(); // مسح أي نجوم موجودة
+                  starRating.empty();
 
-                  var maxRating = 5; // نفترض أن أقصى تقييم هو 5
+                  var maxRating = 5;
                   var filledStars = Math.round((averageRating / maxRating) * 5);
 
                   for (var i = 0; i < filledStars; i++) {
@@ -262,7 +249,7 @@
                 }
               },
               error: function () {
-                // التعامل مع الخطأ في جلب تقييمات الزوار
+                console.error("حدث خطأ أثناء جلب تقييمات الزوار");
               }
             });
 
@@ -283,10 +270,9 @@
         }
       });
 
-      // تفعيل/تعطيل النجوم عند النقر عليها
       $('#star-rating .star').click(function () {
         var rating = $(this).data('rating');
-        $('#visitorRating').val(rating); // تحديث قيمة التقييم
+        $('#visitorRating').val(rating);
         $(this).addClass('selected').prevAll().addClass('selected');
         $(this).nextAll().removeClass('selected');
       });
@@ -294,8 +280,7 @@
       $('#visitorRatingForm').submit(function (event) {
         event.preventDefault();
         $('#submitRating').hide();
-          $('#star-rating').hide();
-
+        $('#star-rating').hide();
         $('#sendingMessage').show();
         var formData = $(this).serialize();
         $.ajax({
