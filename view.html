@@ -87,6 +87,14 @@
     #summary {
       white-space: pre-line;
     }
+
+    .star-rating {
+      color: #ffcc00;
+    }
+
+    .star-rating .filled {
+      color: #ffcc00;
+    }
   </style>
 
 </head>
@@ -146,7 +154,6 @@
             <input type="hidden" id="author" name="author">
             <label style="color:black;" for="visitorRating" class="form-label">تقييم الزوار</label>
             <input style="color:black;" type="number" id="visitorRating" name="visitorRating" min="1" max="5" required>
-            <button style="color:black;" type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
             <p id="sendingMessage" style="display:none;color:black;">رأيك يهمنا. شكرًا على المشاركة!</p>
           </div>
         </form>
@@ -175,7 +182,7 @@
             $('#book-title').text(foundBook[0]);
             $('#book-cover').attr('src', foundBook[1]);
             $('#author').text(foundBook[2]);
-            $('#category')..text(foundBook[4]);
+            $('#category').text(foundBook[4]);
             $('#pages').text(foundBook[3]);
 
             if (foundBook[7]) {
@@ -238,7 +245,6 @@
 
       $('#visitorRatingForm').submit(function (event) {
         event.preventDefault();
-        $('#submitRating').hide();
         $('#sendingMessage').show();
         var formData = $(this).serialize();
         $.ajax({
