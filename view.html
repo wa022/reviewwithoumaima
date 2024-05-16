@@ -288,6 +288,8 @@
       $('#visitorRatingForm').submit(function (event) {
         event.preventDefault();
         $('#submitRating').hide();
+          $('#star-rating').hide();
+
         $('#sendingMessage').show();
         var formData = $(this).serialize();
         $.ajax({
