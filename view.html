@@ -159,7 +159,7 @@
                     <span class="star" data-rating="4">&#9733;</span>
                     <span class="star" data-rating="5">&#9733;</span>
                   </div>
-                  <form id="visitorRatingForm" style="color: white; margin:0px; text-align: right;" action="process_rating.php" method="POST">
+                  <form id="visitorRatingForm" style="color: white; margin:0px; text-align: right;">
                     <input type="hidden" id="bookTitle" name="bookTitle">
                     <input type="hidden" id="author" name="author">
                     <input type="hidden" id="visitorRating" name="visitorRating">
@@ -284,7 +284,7 @@
         $('#sendingMessage').show();
         var formData = $(this).serialize();
         $.ajax({
-          url: "process_rating.php",
+          url: "https://script.google.com/macros/s/AKfycbz2xKhznLJ9g38l_Me40Iurwvd3POHT9efs_E2dZRwqxxvLOTRFiWMJ1ai-CjOVE18u7w/exec",
           method: "POST",
           data: formData,
           success: function (response) {
