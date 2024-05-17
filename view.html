@@ -102,6 +102,10 @@
     .selected {
       color: #ff9d00;
     }
+
+    .yellow-star {
+      color: #ff9d00;
+    }
   </style>
 
 </head>
@@ -244,10 +248,7 @@
                   starRating.empty();
 
                   for (var i = 0; i < Math.floor(averageRating); i++) {
-                    starRating.append('<span class="star">&#9733;</span>');
-                  }
-                  if (averageRating % 1 !== 0) {
-                    starRating.append('<span class="star">&#9733;</span>');
+                    starRating.append('<span class="star yellow-star">&#9733;</span>');
                   }
                   $('#rating-f').prepend(`<p>${roundedRating} / 5</p>`);
                 }
@@ -288,7 +289,7 @@
         $('#sendingMessage').show();
         var formData = $(this).serialize();
         $.ajax({
-          url: "https://script.google.com/macros/s/AKfycbyX1xR2RskLrdl7c72lw6rR7D64CACmRG0dYWOxViS7nUr10UIZZl9ymmK7MPeOGITHIQ/exec",
+          url: "YOUR_GOOGLE_APPS_SCRIPT_URL",
           method: "POST",
           data: formData,
           success: function (response) {
