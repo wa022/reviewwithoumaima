@@ -243,14 +243,13 @@
                   var starRating = $('#rating-f .star-rating');
                   starRating.empty();
 
-                  var maxRating = 5;
-                  var filledStars = Math.round((averageRating / maxRating) * 5);
+                  var filledStars = Math.round(averageRating);
 
                   for (var i = 0; i < filledStars; i++) {
                     var star = $('<span>').addClass('star yellow-star').text('⭐');
                     starRating.append(star);
                   }
-                  $('#rating-f').append(`<p>${averageRating.toFixed(1)} / 5</p>`);
+                  $('#rating-f').append(`<p>${averageRating.toFixed(1)} (${bookRatings.length})</p>`);
                 }
               },
               error: function () {
@@ -311,4 +310,3 @@
 </body>
 
 </html>
-
