@@ -12,6 +12,11 @@
       margin: 0;
       padding: 0;
       color: #333;
+      box-sizing: border-box;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     #loading-screen {
@@ -50,6 +55,7 @@
       background-color: #fff;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: calc(100% - 40px);
     }
 
     #book-title {
@@ -159,9 +165,9 @@
     }
 
     @media (max-width: 600px) {
-      #book-cover {
-        width: 100%;
-        height: auto;
+      #book-details {
+        width: calc(100% - 20px);
+        padding: 10px;
       }
 
       .tg td,
@@ -277,12 +283,14 @@
 
             var officialRatingValue = parseInt(foundBook[6]);
             var starsString = '';
-            for (var i = 0; i < officialRatingValue; i++) {
-              starsString += '⭐';
+            for (var i = 0; i < 5; i++) {
+              if (i < officialRatingValue) {
+                starsString += '<span class="star yellow-star">&#9733;</span>';
+              } else {
+                starsString += '<span class="star">&#9733;</span>';
+              }
             }
-            $('#rating').text(starsString);
-
-            $('#summary-text').text('' + foundBook[7]);
+            $('#rating').html(starsString);
 
             $.ajax({
               url: "https://sheets.googleapis.com/v4/spreadsheets/1BlEY02zKqkGzWQv_IOPzEaCIV0fXdc7O-aZ14rBrzRI/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
