@@ -1,256 +1,191 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تفاصيل الكتاب</title>
   <style>
+    /* CSS styles */
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f8f8f8;
       margin: 0;
-      padding: 0;
-      color: #333;
-      box-sizing: border-box;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #f5f2e6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    #loading-screen img {
-      width: 50px;
-      height: 50px;
-      animation: spin 2s linear infinite;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    #book-details {
-      display: none;
-      max-width: 900px;
-      margin: 20px auto;
+      font-family: Arial, sans-serif;
       padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: calc(100% - 40px);
+      box-sizing: border-box;
     }
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f5f2e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    #book-title {
-      text-align: center;
-      color: #333;
-      margin-bottom: 20px;
-      font-size: 2em;
-      border-bottom: 2px solid #f5f2e6;
-      padding-bottom: 10px;
-    }
+#loading-screen img {
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
 
-    #book-cover {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
-    .tg {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
+.tg {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
 
-    .tg td,
-    .tg th {
-      border: 1px solid #ddd;
-      padding: 10px;
-    }
+.tg td,
+.tg th {
+  border: 1px solid black;
+  font-size: 14px;
+  padding: 10px;
+  word-break: normal;
+}
 
-    .tg th {
-      background-color: #f5f2e6;
-      color: #333;
-    }
+.tg .tg-0pky {
+  text-align: center;
+  vertical-align: top;
+}
 
-    .tg td {
-      background-color: #fff;
-      color: #333;
-    }
+.tg .tg-0lax {
+  text-align: center;
+  vertical-align: top;
+}
 
-    .tg .tg-0lax {
-      text-align: center;
-      vertical-align: top;
-    }
+#book-cover {
+  max-width: 100%;
+  height: auto;
+}
 
-    .tg .tg-0pky {
-      text-align: right;
-      vertical-align: top;
-    }
+#summary {
+  white-space: pre-line;
+  text-align: justify;
+}
 
-    #summary,
-    #rating,
-    #review {
-      margin-top: 20px;
-      line-height: 1.6;
-      color: #666;
-    }
+/* Star rating styles */
+#star-rating {
+  direction: rtl;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
 
-    #star-rating {
-      display: flex;
-      justify-content: center;
-      margin: 10px 0;
-    }
+.star {
+  cursor: pointer;
+  font-size: 24px;
+  color: #ccc;
+}
 
-    .star {
-      cursor: pointer;
-      font-size: 2em;
-      color: #ccc;
-      transition: color 0.2s;
-    }
+.selected {
+  color: #ff9d00;
+}
 
-    .star:hover,
-    .star.selected {
-      color: #ff9d00;
-    }
+.yellow-star {
+  color: #ff9d00;
+}
 
-    .form-label {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 1.2em;
-      color: #333;
-      text-align: center;
-    }
+@media (max-width: 600px) {
+  .tg td,
+  .tg th {
+    display: block;
+    text-align: right;
+    padding: 10px 5px;
+  }
 
-    .btn {
-      display: block;
-      width: 100%;
-      max-width: 200px;
-      margin: 20px auto;
-      padding: 10px;
-      background-color: #ff9d00;
-      border: none;
-      border-radius: 5px;
-      color: #fff;
-      font-size: 1em;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .btn:hover {
-      background-color: #e68a00;
-    }
-
-    #sendingMessage {
-      text-align: center;
-      margin-top: 10px;
-      color: #333;
-    }
-
-    @media (max-width: 600px) {
-      #book-details {
-        width: calc(100% - 20px);
-        padding: 10px;
-      }
-
-      .tg td,
-      .tg th {
-        display: block;
-        width: 100%;
-        text-align: right;
-      }
-
-      .tg td:nth-child(odd),
-      .tg th:nth-child(odd) {
-        background-color: #f5f2e6;
-      }
-    }
-  </style>
+  .tg td:nth-child(odd),
+  .tg th:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+}
+ </style>
 </head>
-
 <body>
   <div id="loading-screen">
     <img src="https://wa022.github.io/2028/loader.png" alt="جاري التحميل">
   </div>
-
-  <div id="book-details">
-    <h2 id="book-title"></h2>
+  <div id="book-details" class="hidden">
     <table class="tg">
+      <thead>
+        <tr>
+          <th class="tg-0lax">
+            <h2 id="book-title"></h2>
+          </th>
+        </tr>
+      </thead>
       <tbody>
         <tr>
-          <td style="text-align: center;" class="tg-0lax" rowspan="5"><img id="book-cover" src="" alt="غلاف الكتاب"></td>
+          <td class="tg-0lax" rowspan="5"><img id="book-cover" src="" alt="غلاف الكتاب"></td>
           <td class="tg-0pky">
-            <strong>اسم الكاتب:</strong>
+            <p>اسم الكاتب</p>
             <p id="author"></p>
           </td>
         </tr>
         <tr>
           <td class="tg-0pky">
-            <strong>عدد الصفحات:</strong>
+            <p>عدد الصفحات</p>
             <p id="pages"></p>
           </td>
         </tr>
         <tr>
           <td class="tg-0pky">
-            <strong>الفئة:</strong>
+            <p>الفئة</p>
             <p id="category"></p>
           </td>
         </tr>
-        <tr>
-          <td class="tg-0pky">
-            <strong>تقييم الزوار:</strong>
-            <p id="rating-f"><span class="star-rating"></span></p>
-          </td>
-        </tr>
-        <tr>
-          <td style="text-align: center;" class="tg-0lax">
-            <label for="visitorRating" class="form-label">شاركنا تقييمك</label>
-            <div id="star-rating">
-              <span class="star" data-rating="1">&#9733;</span>
-              <span class="star" data-rating="2">&#9733;</span>
-              <span class="star" data-rating="3">&#9733;</span>
-              <span class="star" data-rating="4">&#9733;</span>
-              <span class="star" data-rating="5">&#9733;</span>
+    <tr>
+      <td class="tg-0pky">تقييم الزوار
+        <p id="rating-f"><span class="star-rating"></span></p>
+      </td>
+    </tr>
+    <tr>
+      <td class="tg-0lax" colspan="2">
+        <label for="visitorRating" class="form-label">شاركنا تقييمك</label>
+        <div class="container">
+          <div class="content">
+            <div class="user-details">
+              <div id="star-rating">
+                <span class="star" data-rating="1">&#9733;</span>
+                <span class="star" data-rating="2">&#9733;</span>
+                <span class="star" data-rating="3">&#9733;</span>
+                <span class="star" data-rating="4">&#9733;</span>
+                <span class="star" data-rating="5">&#9733;</span>
+              </div>
+              <form id="visitorRatingForm" action="YOUR_GOOGLE_APPS_SCRIPT_URL" method="POST">
+                <input type="hidden" id="bookTitle" name="bookTitle">
+                <input type="hidden" id="author" name="author">
+                <input type="hidden" id="visitorRating" name="visitorRating">
+                <button type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
+                <p id="sendingMessage" style="display:none;">رأيك يهمنا. شكرًا على المشاركة!</p>
+              </form>
             </div>
-            <form id="visitorRatingForm" action="YOUR_GOOGLE_APPS_SCRIPT_URL" method="POST">
-              <input type="hidden" id="bookTitle" name="bookTitle">
-              <input type="hidden" id="author" name="author">
-              <input type="hidden" id="visitorRating" name="visitorRating">
-              <button type="submit" class="btn" id="submitRating">إرسال التقييم</button>
-              <p id="sendingMessage" style="display:none;">رأيك يهمنا. شكرًا على المشاركة!</p>
-            </form>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div id="summary">
-      <h3>الملخص</h3>
-      <p id="summary-text"></p>
-    </div>
-    <div id="review">
-      <h3>تقييمي الشخصي</h3>
-      <p id="rating"></p>
-      <p id="review-text"></p>
-    </div>
-  </div>
-
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="tg-0lax" colspan="2">
+        <h3>الملخص</h3>
+        <p id="summary"></p>
+        <h3>تقييمي الشخصي</h3>
+        <p id="rating"></p>
+        <p id="review"></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+ </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
@@ -276,21 +211,19 @@
             $('#pages').text(foundBook[3]);
 
             if (foundBook[7]) {
-              $('#review-text').text(foundBook[8]);
+              $('#review').text(foundBook[8]);
             } else {
-              $('#review-text').text('لا توجد مراجعة حاليا.');
+              $('#review').text('لا توجد مراجعة حاليا.');
             }
 
             var officialRatingValue = parseInt(foundBook[6]);
             var starsString = '';
-            for (var i = 0; i < 5; i++) {
-              if (i < officialRatingValue) {
-                starsString += '<span class="star yellow-star">&#9733;</span>';
-              } else {
-                starsString += '<span class="star">&#9733;</span>';
-              }
+            for (var i = 0; i < officialRatingValue; i++) {
+              starsString += '⭐';
             }
-            $('#rating').html(starsString);
+            $('#rating').text(starsString);
+
+            $('#summary').text('' + foundBook[7]);
 
             $.ajax({
               url: "https://sheets.googleapis.com/v4/spreadsheets/1BlEY02zKqkGzWQv_IOPzEaCIV0fXdc7O-aZ14rBrzRI/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
@@ -373,5 +306,5 @@
     });
   </script>
 </body>
-
 </html>
+
