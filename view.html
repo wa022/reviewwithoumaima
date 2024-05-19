@@ -6,22 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تفاصيل الكتاب</title>
   <style>
-    /* CSS styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
     #loading-screen {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #f5f2e6; /* Background color */
+      background-color: #f5f2e6;
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 1000;
     }
 
     #loading-screen img {
-      width: 30px;
-      height: 30px;
+      width: 50px;
+      height: 50px;
       animation: spin 2s linear infinite;
     }
 
@@ -34,22 +42,51 @@
       }
     }
 
-    .tg td,
-    .tg th {
-      border-color: black;
-      border-style: solid;
-      border-width: 1px;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      overflow: hidden;
-      padding: 10px 5px;
-      word-break: normal;
+    #book-details {
+      display: none;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    .tg .tg-0pky {
-      border-color: inherit;
+    #book-title {
       text-align: center;
-      vertical-align: top;
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 2em;
+      border-bottom: 2px solid #f5f2e6;
+      padding-bottom: 10px;
+    }
+
+    #book-cover {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .tg {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .tg td,
+    .tg th {
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+
+    .tg th {
+      background-color: #f5f2e6;
+      color: #333;
+    }
+
+    .tg td {
+      background-color: #fff;
+      color: #333;
     }
 
     .tg .tg-0lax {
@@ -57,54 +94,87 @@
       vertical-align: top;
     }
 
-    @media (min-width: 601px) {
-      .tg td:nth-child(1),
-      .tg th:nth-child(1) {
-        width: 30%;
-        text-align: right;
-      }
+    .tg .tg-0pky {
+      text-align: right;
+      vertical-align: top;
+    }
 
-      .tg td:nth-child(2),
-      .tg th:nth-child(2) {
-        width: 70%;
-        text-align: right;
-      }
+    #summary,
+    #rating,
+    #review {
+      margin-top: 20px;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    #star-rating {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    .star {
+      cursor: pointer;
+      font-size: 2em;
+      color: #ccc;
+      transition: color 0.2s;
+    }
+
+    .star:hover,
+    .star.selected {
+      color: #ff9d00;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.2em;
+      color: #333;
+      text-align: center;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      max-width: 200px;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: #ff9d00;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background-color: #e68a00;
+    }
+
+    #sendingMessage {
+      text-align: center;
+      margin-top: 10px;
+      color: #333;
     }
 
     @media (max-width: 600px) {
+      #book-cover {
+        width: 100%;
+        height: auto;
+      }
+
       .tg td,
       .tg th {
         display: block;
+        width: 100%;
         text-align: right;
       }
 
       .tg td:nth-child(odd),
       .tg th:nth-child(odd) {
-        background-color: #f2f2f2;
+        background-color: #f5f2e6;
       }
-    }
-
-    #summary {
-      white-space: pre-line;
-    }
-
-    /* Star rating styles */
-    #star-rating {
-      direction: rtl;
-    }
-
-    .star {
-      cursor: pointer;
-      font-size: 24px;
-      color: #ccc;
-    }
-
-    .selected {
-      color: #ff9d00;
-    }
-
-    .yellow-star {
-      color: #ff9d00;
     }
   </style>
 </head>
@@ -114,77 +184,65 @@
     <img src="https://wa022.github.io/2028/loader.png" alt="جاري التحميل">
   </div>
 
-  <div id="book-details" class="hidden">
-    <table style="width: 100%;border-color: transparent;" class="tg">
-      <thead>
-        <tr>
-          <th style="text-align: center;border-color: transparent;" class="tg-0lax">
-            <h2 id="book-title"></h2>
-          </th>
-        </tr>
-      </thead>
+  <div id="book-details">
+    <h2 id="book-title"></h2>
+    <table class="tg">
       <tbody>
         <tr>
-          <td style="text-align: center;border-color: transparent;" class="tg-0lax" rowspan="5"><img style="height: 400px;" id="book-cover" src="" alt="غلاف الكتاب"></td>
+          <td style="text-align: center;" class="tg-0lax" rowspan="5"><img id="book-cover" src="" alt="غلاف الكتاب"></td>
           <td class="tg-0pky">
-            <p>اسم الكاتب</p>
+            <strong>اسم الكاتب:</strong>
             <p id="author"></p>
           </td>
         </tr>
         <tr>
           <td class="tg-0pky">
-            <p>عدد الصفحات</p>
+            <strong>عدد الصفحات:</strong>
             <p id="pages"></p>
           </td>
         </tr>
         <tr>
           <td class="tg-0pky">
-            <p>الفئة</p>
+            <strong>الفئة:</strong>
             <p id="category"></p>
           </td>
         </tr>
-
         <tr>
-          <td class="tg-0pky">تقييم الزوار
+          <td class="tg-0pky">
+            <strong>تقييم الزوار:</strong>
             <p id="rating-f"><span class="star-rating"></span></p>
           </td>
         </tr>
         <tr>
-          <td style="border-color: transparent;" class="tg-0lax" colspan="2">
-            <label style="color:black;" for="visitorRating" class="form-label">شاركنا تقييمك</label>
-            <div class="container">
-              <div class="content">
-                <div class="user-details">
-                  <div id="star-rating">
-                    <span class="star" data-rating="1">&#9733;</span>
-                    <span class="star" data-rating="2">&#9733;</span>
-                    <span class="star" data-rating="3">&#9733;</span>
-                    <span class="star" data-rating="4">&#9733;</span>
-                    <span class="star" data-rating="5">&#9733;</span>
-                  </div>
-                  <form id="visitorRatingForm" style="color: white; margin:0px; text-align: right;" action="YOUR_GOOGLE_APPS_SCRIPT_URL" method="POST">
-                    <input type="hidden" id="bookTitle" name="bookTitle">
-                    <input type="hidden" id="author" name="author">
-                    <input type="hidden" id="visitorRating" name="visitorRating">
-                    <button style="color:black;" type="submit" class="btn btn-primary" id="submitRating">إرسال التقييم</button>
-                    <p id="sendingMessage" style="display:none;color:black;">رأيك يهمنا. شكرًا على المشاركة!</p>
-                  </form>
-                </div>
-              </div>
+          <td style="text-align: center;" class="tg-0lax">
+            <label for="visitorRating" class="form-label">شاركنا تقييمك</label>
+            <div id="star-rating">
+              <span class="star" data-rating="1">&#9733;</span>
+              <span class="star" data-rating="2">&#9733;</span>
+              <span class="star" data-rating="3">&#9733;</span>
+              <span class="star" data-rating="4">&#9733;</span>
+              <span class="star" data-rating="5">&#9733;</span>
             </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="border-color: transparent;" class="tg-0lax" colspan="2">
-            <h3>الملخص</h3>
-            <p id="summary"></p>
-            <h3>تقييمي الشخصي</h3>
-            <p id="rating"></p>
-            <p id="review"></p>
+            <form id="visitorRatingForm" action="YOUR_GOOGLE_APPS_SCRIPT_URL" method="POST">
+              <input type="hidden" id="bookTitle" name="bookTitle">
+              <input type="hidden" id="author" name="author">
+              <input type="hidden" id="visitorRating" name="visitorRating">
+              <button type="submit" class="btn" id="submitRating">إرسال التقييم</button>
+              <p id="sendingMessage" style="display:none;">رأيك يهمنا. شكرًا على المشاركة!</p>
+            </form>
           </td>
         </tr>
       </tbody>
     </table>
+    <div id="summary">
+      <h3>الملخص</h3>
+      <p id="summary-text"></p>
+    </div>
+    <div id="review">
+      <h3>تقييمي الشخصي</h3>
+      <p id="rating"></p>
+      <p id="review-text"></p>
+    </div>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -212,9 +270,9 @@
             $('#pages').text(foundBook[3]);
 
             if (foundBook[7]) {
-              $('#review').text(foundBook[8]);
+              $('#review-text').text(foundBook[8]);
             } else {
-              $('#review').text('لا توجد مراجعة حاليا.');
+              $('#review-text').text('لا توجد مراجعة حاليا.');
             }
 
             var officialRatingValue = parseInt(foundBook[6]);
@@ -224,7 +282,7 @@
             }
             $('#rating').text(starsString);
 
-            $('#summary').text('' + foundBook[7]);
+            $('#summary-text').text('' + foundBook[7]);
 
             $.ajax({
               url: "https://sheets.googleapis.com/v4/spreadsheets/1BlEY02zKqkGzWQv_IOPzEaCIV0fXdc7O-aZ14rBrzRI/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
