@@ -278,10 +278,6 @@ font-family: Noto Kufi Arabic, sans-serif;
 
     @media (min-width: 601px) {
 
-
- #sendingMessage {
-        text-align: center;
-      }
     .btn{
        float: right;
       }
@@ -311,6 +307,12 @@ font-family: Noto Kufi Arabic, sans-serif;
     }
 
     @media (max-width: 600px) {
+
+ #sendingMessage {
+        text-align: right;
+      }
+
+
       .tg td,
       .tg th {
         display: block;
@@ -453,7 +455,7 @@ font-family: Noto Kufi Arabic, sans-serif;
                     <input type="hidden" id="author" name="author">
                     <input type="hidden" id="visitorRating" name="visitorRating">
                     <button style="color:black;margin-top: 5px;" type="submit" class="btn" id="submitRating">ارسال تقييمك</button>
-                    <p class="sendingMessage" id="sendingMessage" style="display:none;color:black;">شكرًا على المشاركة!</p>
+                    <p class="sendingMessage" id="sendingMessage" style="display:none;color:black;text-align: center;">شكرًا على المشاركة!</p>
                   </form>
                 </div>
               </div>
