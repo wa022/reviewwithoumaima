@@ -135,8 +135,13 @@
 
     .nav-a {
         text-decoration: none;
+        color: black;
     }
 
+.nav-a:hover {
+        color: #85640a;
+    }
+    
     nav.open {
         display: flex;
         flex-direction: column;
@@ -164,25 +169,33 @@
         background-size: cover;
     }
 
-    .search-box {
+     .search-box {
         text-align: center;
         padding: 20px;
     }
 
  .search-box input{
+ font-family: Rubik, sans-serif;
         border-width: 1px;
-        height: 20px;
-        border-radius: 30px;
+        height: 25px;
+        border-radius: 0px 20px 20px 0px;
         padding-right: 15px;
     }
 
 .search-box button {
-        border-width: 1px;
-        height: 20px;
-        border-radius: 30px;
-        text-align: center;
+font-family: Rubik, sans-serif;
+    border-width: 1px;
+    height: 29px;
+    width: 29px;
+   border-radius: 20px 0px 0px 20px;
+    text-align: center;
+    background: black;
     }
-
+    
+.search-box button:hover {
+            background-color: #ff7a2a;
+            border-width: 0px;
+        }
 
 
     @media screen and (max-width: 576px) {
@@ -244,7 +257,7 @@
 
     <div class="search-box">
         <input type="text" placeholder="ابحث هنا...">
-        <button>ابحث</button>
+       <button><img style="vertical-align: middle;height: 13px;" src="https://img.icons8.com/ios-filled/24/ffffff/search.png" alt="بحث"></button>
     </div>
 
     <!-- المحتوى الآخر يأتي هنا -->
