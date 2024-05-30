@@ -257,6 +257,19 @@
                 margin-right: 5%;
             }
         }
+
+
+
+  footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            color: #000;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+        }
+
+
     </style>
 
 </head>
@@ -283,6 +296,11 @@
         <button id="load-more-btn" class="load-more-btn" style="display: none;">تحميل المزيد</button>
         <p id="no-more-books" class="load-more-msg" style="display: none;">ليس هناك المزيد لعرضه</p>
     </section>
+
+ <footer>
+        <p id="footer-text"></p>
+    </footer>
+
 
     <script>
         function toggleMenu() {
@@ -351,6 +369,16 @@
                 }
             });
         });
+
+  // عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentYear = new Date().getFullYear(); // السنة الحالية
+            const websiteName = "مراجعة مع اميمة"; // استبدل بالاسم الخاص بموقعك
+
+            const footerText = document.getElementById('footer-text');
+            footerText.textContent = `جميع الحقوق محفوظة © ${currentYear} `;
+        });
+
     </script>
 </body>
 </html>
