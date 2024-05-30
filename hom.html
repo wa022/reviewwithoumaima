@@ -4,251 +4,267 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>مراجعة مع أميمة</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
-
-
-   <style>
-    body {
-        font-family: Rubik, sans-serif;
-        margin: 0;
-        background-color: #ffb1000d;/* theme */
-        direction: rtl; /* RTL direction for body */
-    }
-
-    .container {
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    #results-container {
-        display: flex; /* استخدم Flexbox للمركز */
-        flex-wrap: wrap; /* للسماح بالتفاف العناصر عند الحاجة */
-        justify-content: center; /* محاذاة العناصر في الوسط */
-    }
-
-    .book {
-        margin-bottom: 20px;
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 5px;
-        box-sizing: border-box;
-        text-align: center; /* Center text within book elements */
-        display: inline-block; /* Display books side-by-side */
-        margin: 10px;
-    }
-
-    /* Adjust for smaller screens (less than 992px) */
-    @media (max-width: 991px) {
-        .book {
-            width: calc(33.333% - 20px); /* Adjust width for 3 columns */
+    <style>
+        body {
+            font-family: Rubik, sans-serif;
+            margin: 0;
+            background-color: #ffb1000d;/* theme */
+            direction: rtl; /* RTL direction for body */
         }
-    }
 
-    /* Adjust for smaller screens (less than 768px) */
-    @media (max-width: 767px) {
-        .book {
-            width: calc(50% - 20px); /* Adjust width for 2 columns */
-        }
-    }
-
-    /* Adjust for even smaller screens (less than 480px) */
-    @media (max-width: 480px) {
         .container {
-            padding: 0 10px; /* إضافة هامش يمين ويسار بـ 10 بكسل */
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        #results-container {
+            display: flex; /* استخدم Flexbox للمركز */
+            flex-wrap: wrap; /* للسماح بالتفاف العناصر عند الحاجة */
+            justify-content: center; /* محاذاة العناصر في الوسط */
         }
 
         .book {
-            width: calc(100% - 20px); /* عرض العناصر بالمنتصف مع مسافة 10 بكسل من الجهتين */
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            text-align: center; /* Center text within book elements */
+            display: inline-block; /* Display books side-by-side */
+            margin: 10px;
         }
-    }
 
-    .book img {
-        width: 100%; /* Make images responsive to container width */
-        height: 350px; /* Set a fixed height for all images */
-        object-fit: cover; /* Crop images to fit the container */
-    }
+        /* Adjust for smaller screens (less than 992px) */
+        @media (max-width: 991px) {
+            .book {
+                width: calc(33.333% - 20px); /* Adjust width for 3 columns */
+            }
+        }
 
-    .view-book-btn {
-       font-family: Rubik, sans-serif;
-        padding: 5px 10px;
-        background-color: #e74c3c; /* Orange button color */
-        color: white;
-        border: none;
-        border-radius: 40px;
-        cursor: pointer;
-        margin-top: 10px;
-        display: block; /* Make button a block element */
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%; /* Adjust button width */
-    }
+        /* Adjust for smaller screens (less than 768px) */
+        @media (max-width: 767px) {
+            .book {
+                width: calc(50% - 20px); /* Adjust width for 2 columns */
+            }
+        }
 
-    h3 {
-        color: #85640a; /* Darker orange for headings */
-        margin-bottom: 20px; /* Add bottom margin */
-        text-decoration: none; /* Remove underline from book titles */
-    }
+        /* Adjust for even smaller screens (less than 480px) */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px; /* إضافة هامش يمين ويسار بـ 10 بكسل */
+            }
 
-    /* تغيير لون العناصر عند تمرير المؤشر (hover) */
-    .book:hover {
-        border-color: #e74c3c; /* تغيير لون الحدود للكتاب */
-    }
+            .book {
+                width: calc(100% - 20px); /* عرض العناصر بالمنتصف مع مسافة 10 بكسل من الجهتين */
+            }
+        }
 
-    .book:hover h3 {
-        color: #e74c3c; /* تغيير لون عنوان الكتاب */
-    }
+        .book img {
+            width: 100%; /* Make images responsive to container width */
+            height: 350px; /* Set a fixed height for all images */
+            object-fit: cover; /* Crop images to fit the container */
+        }
 
-    .book:hover .view-book-btn {
-        background-color: red; /* تغيير لون زر المراجعة */
-    }
+        .view-book-btn {
+            font-family: Rubik, sans-serif;
+            padding: 5px 10px;
+            background-color: #e74c3c; /* Orange button color */
+            color: white;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block; /* Make button a block element */
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%; /* Adjust button width */
+        }
+        
+         .load-more-btn {
+            font-family: Rubik, sans-serif;
+            padding: 5px 10px;
+            background-color: #e74c3c; /* Orange button color */
+            color: white;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block; /* Make button a block element */
+            margin-left: auto;
+            margin-right: auto;
+            width: 20%; /* Adjust button width */
+        }
+        
+        .load-more-msg {
+           color: #747070;
+        }
 
-    /* Second Style Section */
+        h3 {
+            color: #85640a; /* Darker orange for headings */
+            margin-bottom: 20px; /* Add bottom margin */
+            text-decoration: none; /* Remove underline from book titles */
+        }
 
-    header {
-        background-color: #ffffff;
-        color: #fff;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-    }
+        /* تغيير لون العناصر عند تمرير المؤشر (hover) */
+        .book:hover {
+            border-color: #e74c3c; /* تغيير لون الحدود للكتاب */
+        }
 
-    .logo {
-        width: 100px;
-        height: auto;
-        margin-left: 10%;
-        margin-right: 5%;
-    }
+        .book:hover h3 {
+            color: #e74c3c; /* تغيير لون عنوان الكتاب */
+        }
 
-    nav {
-        display: flex;
-        gap: 20px;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+        .book:hover .view-book-btn {
+            background-color: red; /* تغيير لون زر المراجعة */
+        }
 
-    .nav-a {
-        text-decoration: none;
-        color: black;
-    }
+        /* Second Style Section */
 
-.nav-a:hover {
-        color: #85640a;
-    }
-    
-    nav.open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 140px;
-        left: 0;
-        right: 0;
-        background-color: #fff;
-        /* border: 1px solid #333; */
-        border-radius: 0px;
-        padding: 10px;
-        height: auto;
-    }
+        header {
+            background-color: #ffffff;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
 
-    nav.open a {
-        color: #000;
-    }
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-left: 10%;
+            margin-right: 5%;
+        }
 
-    .menu-icon {
-        display: none;
-        width: 25px;
-        height: 25px;
-        cursor: pointer;
-        background-image: url('https://wa022.github.io/2028/menu.png');
-        background-size: cover;
-    }
+        nav {
+            display: flex;
+            gap: 20px;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
 
-     .search-box {
-        text-align: center;
-        padding: 20px;
-    }
+        .nav-a {
+            text-decoration: none;
+            color: black;
+        }
 
- .search-box input{
- font-family: Rubik, sans-serif;
-        border-width: 1px;
-        height: 25px;
-        border-radius: 0px 20px 20px 0px;
-        padding-right: 15px;
-    }
+        .nav-a:hover {
+            color: #85640a;
+        }
 
-.search-box button {
-font-family: Rubik, sans-serif;
-    border-width: 1px;
-    height: 29px;
-    width: 29px;
-   border-radius: 20px 0px 0px 20px;
-    text-align: center;
-    background: black;
-    }
-    
-.search-box button:hover {
+        nav.open {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 140px;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            /* border: 1px solid #333; */
+            border-radius: 0px;
+            padding: 10px;
+            height: auto;
+        }
+
+        nav.open a {
+            color: #000;
+        }
+
+        .menu-icon {
+            display: none;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            background-image: url('https://wa022.github.io/2028/menu.png');
+            background-size: cover;
+        }
+
+        .search-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .search-box input {
+            font-family: Rubik, sans-serif;
+            border-width: 1px;
+            height: 25px;
+            border-radius: 0px 20px 20px 0px;
+            padding-right: 15px;
+        }
+
+        .search-box button {
+            font-family: Rubik, sans-serif;
+            border-width: 1px;
+            height: 29px;
+            width: 29px;
+            border-radius: 20px 0px 0px 20px;
+            text-align: center;
+            background: black;
+        }
+
+        .search-box button:hover {
             background-color: #ff7a2a;
             border-width: 0px;
         }
 
+        @media screen and (max-width: 576px) {
+            header {
+                flex-direction: row-reverse;
+            }
 
-    @media screen and (max-width: 576px) {
-        header {
-            flex-direction: row-reverse;
+            .logo {
+                margin-left: auto;
+                margin-right: 10px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .search-box {
+                padding: 10px;
+            }
         }
 
-        .logo {
-            margin-left: auto;
-            margin-right: 10px;
+        @media screen and (min-width: 577px) and (max-width: 768px) {
+            .logo {
+                margin-left: 5%;
+                margin-right: 10%;
+            }
         }
 
-        nav {
-            display: none;
+        @media screen and (min-width: 769px) and (max-width: 992px) {
+            .logo {
+                margin-left: 10%;
+                margin-right: 5%;
+            }
         }
 
-        .menu-icon {
-            display: block;
+        @media screen and (min-width: 993px) {
+            .logo {
+                margin-left: 10%;
+                margin-right: 5%;
+            }
         }
-
-        .search-box {
-            padding: 10px;
-        }
-    }
-
-    @media screen and (min-width: 577px) and (max-width: 768px) {
-        .logo {
-            margin-left: 5%;
-            margin-right: 10%;
-        }
-    }
-
-    @media screen and (min-width: 769px) and (max-width: 992px) {
-        .logo {
-            margin-left: 10%;
-            margin-right: 5%;
-        }
-    }
-
-    @media screen and (min-width: 993px) {
-        .logo {
-            margin-left: 10%;
-            margin-right: 5%;
-        }
-    }
-</style>
+    </style>
 
 </head>
 <body>
     <header>
         <div class="menu-icon" onclick="toggleMenu()"></div>
         <img src="https://wa022.github.io/2028/oumaima.png" alt="شعار" class="logo">
-        <nav >
+        <nav>
             <a href="#" class="nav-a">الرئيسية</a>
             <a href="#" class="nav-a">من أنا</a>
             <a href="#" class="nav-a">للتواصل معي</a>
@@ -257,94 +273,84 @@ font-family: Rubik, sans-serif;
 
     <div class="search-box">
         <input type="text" placeholder="ابحث هنا...">
-       <button><img style="vertical-align: middle;height: 13px;" src="https://img.icons8.com/ios-filled/24/ffffff/search.png" alt="بحث"></button>
+        <button><img style="vertical-align: middle;height: 13px;" src="https://img.icons8.com/ios-filled/24/ffffff/search.png" alt="بحث"></button>
     </div>
 
     <!-- المحتوى الآخر يأتي هنا -->
     
-    
-    
-     <section id="results-container" class="container">
-
-    <div id="results"></div>
-
-  </section>
-    
-    
-    
+    <section id="results-container" class="container">
+        <div id="results"></div>
+        <button id="load-more-btn" class="load-more-btn" style="display: none;">تحميل المزيد</button>
+        <p id="no-more-books" class="load-more-msg" style="display: none;">ليس هناك المزيد لعرضه</p>
+    </section>
 
     <script>
-      function toggleMenu() {
-        const nav = document.querySelector('nav');
-        const menuIcon = document.querySelector('.menu-icon');
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            const menuIcon = document.querySelector('.menu-icon');
 
-        nav.classList.toggle('open');
+            nav.classList.toggle('open');
 
-        // تغيير الصورة بناءً على حالة القائمة
-        if (nav.classList.contains('open')) {
-            menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/left-arrow.png')";
-        } else {
-            menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/menu.png')";
+            // تغيير الصورة بناءً على حالة القائمة
+            if (nav.classList.contains('open')) {
+                menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/left-arrow.png')";
+            } else {
+                menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/menu.png')";
+            }
         }
-    }
-      
-      
 
+        function searchBooks() {
+            var searchTerm = document.querySelector('input[type="text"]').value.trim().toLowerCase(); // الكلمة المدخلة في مربع البحث
 
-    // الدالة للبحث عن الكلمة المدخلة
-    function searchBooks() {
-        var searchTerm = document.querySelector('input[type="text"]').value.trim().toLowerCase(); // الكلمة المدخلة في مربع البحث
-
-        // توجيه المستخدم إلى صفحة result.html مع إضافة الكلمة المدخلة كمعلمة في العنوان
-        window.location.href = 'result.html?search=' + encodeURIComponent(searchTerm);
-    }
-    
-    // اربط الدالة بزر البحث
-    document.querySelector('button').addEventListener('click', searchBooks);
-
-
-
-
-      
-         $(document).ready(function(){
-      $.ajax({
-        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
-        method: "GET",
-        success: function(data){
-          var books = data.values;
-          books.shift(); 
-
-          var output = '';
-          $.each(books, function(index, book){
-            output += '<div class="book">';
-            output += '<a style="text-decoration: none;" href="view.html?title=' + encodeURIComponent(book[0]) + '">';
-            output += '<h3>' + book[0] + '</h3>'; // عنوان الكتاب
-            output += '<img src="' + book[1] + '" alt="غلاف الكتاب">'; // غلاف الكتاب
-            output += '</a>';
-            output += '<button class="view-book-btn">مراجعتي</button>';
-            output += '</div>';
-          });
-
-          $('#results').html(output);
-
-          $('.view-book-btn').click(function(){
-            var bookTitle = $(this).prev().text();
-            var bookCover = $(this).prev().prev().attr('src');
-            var author = $(this).prev().data('author');
-            var category = $(this).prev().data('category');
-            var review = $(this).prev().data('review');
-            var summary = $(this).prev().data('summary');
-            window.location.href = 'view.html?title=' + encodeURIComponent(bookTitle) ;
-          });
+            // توجيه المستخدم إلى صفحة result.html مع إضافة الكلمة المدخلة كمعلمة في العنوان
+            window.location.href = 'result.html?search=' + encodeURIComponent(searchTerm);
         }
-      });
-    });
 
+        // اربط الدالة بزر البحث
+        document.querySelector('button').addEventListener('click', searchBooks);
 
-        
-        
-        
-        
+        $(document).ready(function(){
+            let books = [];
+            let currentIndex = 0;
+            const booksPerPage = 6;
+
+            function displayBooks() {
+                let output = '';
+                for (let i = currentIndex; i < currentIndex + booksPerPage && i < books.length; i++) {
+                    output += '<div class="book">';
+                    output += '<a style="text-decoration: none;" href="view.html?title=' + encodeURIComponent(books[i][0]) + '">';
+                    output += '<h3>' + books[i][0] + '</h3>'; // عنوان الكتاب
+                    output += '<img src="' + books[i][1] + '" alt="غلاف الكتاب">'; // غلاف الكتاب
+                    output += '</a>';
+                    output += '<button class="view-book-btn">مراجعتي</button>';
+                    output += '</div>';
+                }
+                $('#results').append(output);
+
+                if (currentIndex + booksPerPage >= books.length) {
+                    $('#load-more-btn').hide();
+                    $('#no-more-books').show();
+                } else {
+                    $('#load-more-btn').show();
+                }
+
+                currentIndex += booksPerPage;
+            }
+
+            $('#load-more-btn').click(function() {
+                displayBooks();
+            });
+
+            $.ajax({
+                url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:I100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
+                method: "GET",
+                success: function(data){
+                    books = data.values;
+                    books.shift(); // Remove header row
+                    displayBooks();
+                }
+            });
+        });
     </script>
 </body>
 </html>
