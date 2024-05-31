@@ -180,16 +180,18 @@
 
                     reviewElement.textContent = review;
 
-                    // Generate user comment
-                    const comment = `
-                    عنوان الرواية: ${title}
-                    ${'★'.repeat(rating)}
-                    الكاتب: ${author}
-                    التصنيف: ${genre}
-                    عدد الصفحات: ${pages}
-                    الملخص: ${summary}
-                    تقييمي: ${review}
-                    `
+                     // Generate user comment with blank lines before "الملخص" and "تقييمي" and new lines after them
+                    const comment = `عنوان الرواية: ${title}(${'★'.repeat(rating)})
+الكاتب: ${author}
+التصنيف: ${genre}
+عدد الصفحات: ${pages}
+
+الملخص:
+${summary}
+
+تقييمي:
+(${'★'.repeat(rating)})
+${review}`;
                     commentElement.value = comment.trim();
                 });
             });
