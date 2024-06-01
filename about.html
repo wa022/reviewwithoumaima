@@ -22,7 +22,7 @@
             display: flex;
             flex-wrap: wrap;
             width: 100%;
-           margin-top: 20px;
+            margin-top: 20px;
             overflow: hidden;
         }
         .container img {
@@ -45,29 +45,52 @@
             font-size: 1.5em;
             color: #555;
             direction: ltr;
-             text-align: right;
+            text-align: right;
         }
         .content p {
             margin: 10px 0;
             line-height: 1.6;
         }
+        .social-section {
+            margin-top: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icons img {
+            width: 18px;
+            height: 18px;
+            margin-left: 5px;
+        }
+
         @media (max-width: 1200px) {
             .container {
-                 width: 100%;
+                width: 100%;
                 margin: 0 auto;
             }
             .content h2 {
-             text-align: right;
-        }
+                text-align: right;
+            }
+             .social-icons {
+                justify-content: right;
+            }
         }
         @media (max-width: 992px) {
             .container {
-               width: 100%;
+                width: 100%;
                 margin: 0 auto;
             }
-           .content h2 {
-             text-align: right;
-        }
+            .content h2 {
+                text-align: right;
+            }
+             .social-icons {
+                justify-content: right;
+            }
         }
         @media (max-width: 768px) {
             body {
@@ -80,9 +103,20 @@
             .content {
                 text-align: center;
             }
-             .content h2 {
-               text-align: center;
-
+            .content h2 {
+                text-align: center;
+            }
+            
+            
+            .social-section{
+                text-align: center;
+            }
+            .social-icons {
+                justify-content: center;
+            }
+            
+            .social-icons img {
+                margin: 5px 0;
             }
         }
         @media (max-width: 576px) {
@@ -91,13 +125,11 @@
             }
             .content h2 {
                 font-size: 1.25em;
-               text-align: center;
-
+                text-align: center;
             }
             .content p {
                 font-size: 0.9em;
             }
-        
         }
 
         /* Second Style Section */
@@ -217,8 +249,20 @@
         <img src="https://wa022.github.io/reviewwithoumaima/oumaima2.png" alt="أميمة الماموني">
         <div class="content">
             <h1>أميمة الماموني</h1>
-            <h2>@oumaima.elmamouny</h2>
-            <p>أهلاً بكم في "المراجعة". أنا أميمة بنوا، فتاة تعشق الكتب والروايات. أنشأت هذا الموقع لأشارككم مراجعاتي للكتب والروايات التي قرأتها وأحببتها. آمل أن تجدوا هنا ما ينير دروبكم الأدبية ويشجعكم على قراءة المزيد. شكراً لزيارتكم!</p>
+            <h2></h2>
+            <p>أهلاً بكم في "المراجعة". أنا أميمة الماموني، فتاة تعشق الكتب والروايات. أنشأت هذا الموقع لأشارككم مراجعاتي للكتب والروايات التي قرأتها وأحببتها. آمل أن تجدوا هنا ما ينير دروبكم الأدبية ويشجعكم على قراءة المزيد. شكراً لزيارتكم!</p>
+            <div class="social-section">
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/oumaima.elmamouny" target="_blank">
+                      
+                        <img src="https://img.icons8.com/ios-filled/24/000000/instagram.png" alt="إنستغرام">
+                    </a>
+                    <a href="https://www.facebook.com/oumaima.elmamouny" target="_blank">
+                       
+                        <img src="https://img.icons8.com/ios-filled/24/000000/facebook.png" alt="فيسبوك">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
