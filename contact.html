@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>المراجعة - من أنا</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Rubik, sans-serif;
+            margin: 0;
+            background-color: #ffb1000d; /* theme */
+            direction: rtl; /* RTL direction for body */
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        .container img {
+            width: 100%;
+            height: auto;
+            max-width: 400px;
+            margin: 0 auto; /* Center the image */
+            object-fit: cover;
+        }
+        .content {
+            padding: 20px;
+            flex: 1;
+        }
+        .content h1 {
+            margin: 0 0 10px;
+            font-size: 2em;
+        }
+        .content h2 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+            color: #555;
+            direction: ltr;
+            text-align: right;
+        }
+        .content p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .social-section {
+            margin-top: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .social-icons img {
+            width: 18px;
+            height: 18px;
+            margin-left: 5px;
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                width: 100%;
+                margin: 0 auto;
+            }
+            .content h2 {
+                text-align: right;
+            }
+             .social-icons {
+                justify-content: right;
+            }
+        }
+        @media (max-width: 992px) {
+            .container {
+                width: 100%;
+                margin: 0 auto;
+            }
+            .content h2 {
+                text-align: right;
+            }
+             .social-icons {
+                justify-content: right;
+            }
+        }
+        @media (max-width: 768px) {
+            body {
+                text-align: center;
+            }
+            .container {
+                flex-direction: column;
+                max-width: 100%;
+            }
+            .content {
+                text-align: center;
+            }
+            .content h2 {
+                text-align: center;
+            }
+            
+            
+            .social-section{
+                text-align: center;
+            }
+            .social-icons {
+                justify-content: center;
+            }
+            
+            .social-icons img {
+                margin: 5px 0;
+            }
+        }
+        @media (max-width: 576px) {
+            .content h1 {
+                font-size: 1.75em;
+            }
+            .content h2 {
+                font-size: 1.25em;
+                text-align: center;
+            }
+            .content p {
+                font-size: 0.9em;
+            }
+        }
+
+        /* Second Style Section */
+        header {
+            background-color: #ffffff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-left: 10%;
+            margin-right: 5%;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-a {
+            text-decoration: none;
+            color: black;
+        }
+        .nav-a:hover {
+            color: #85640a;
+        }
+        nav.open {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 140px;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            border-radius: 0px;
+            padding: 10px;
+            height: auto;
+        }
+        nav.open a {
+            color: #000;
+        }
+        .menu-icon {
+            display: none;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            background-image: url('https://wa022.github.io/2028/menu.png');
+            background-size: cover;
+        }
+
+
+       
+
+
+
+        @media screen and (max-width: 576px) {
+            header {
+                flex-direction: row-reverse;
+            }
+            .logo {
+                margin-left: auto;
+                margin-right: 10px;
+            }
+            nav {
+                display: none;
+            }
+            .menu-icon {
+                display: block;
+            }
+            .search-box {
+                padding: 10px;
+            }
+        }
+
+        @media screen and (min-width: 577px) and (max-width: 768px) {
+            .logo {
+                margin-left: 5%;
+                margin-right: 10%;
+            }
+          
+        }
+
+        @media screen and (min-width: 769px) and (max-width: 992px) {
+            .logo {
+                margin-left: 10%;
+                margin-right: 5%;
+            }
+        }
+
+        @media screen and (min-width: 993px) {
+            .logo {
+                margin-left: 10%;
+                margin-right: 5%;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            color: #000;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-icon" onclick="toggleMenu()"></div>
+        <img src="https://wa022.github.io/reviewwithoumaima/logoB.png" alt="شعار" class="logo">
+        <nav>
+            <a href="#" class="nav-a">الرئيسية</a>
+            <a href="#" class="nav-a">من أنا</a>
+            <a href="#" class="nav-a">للتواصل معي</a>
+        </nav>
+    </header>
+
+    <!-- المحتوى الآخر يأتي هنا -->
+    <div class="container">
+
+<img style="width: 50px;height: auto;margin-top: 20px;" src="https://wa022.github.io/reviewwithoumaima/logoB.png" alt="شعار" class="logoc" >
+
+<div class="content">
+           
+           
+           <form id="contact-form">
+            <div class="form-group">
+                <label for="name">الاسم:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">الرسالة:</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit">إرسال</button>
+            </div>
+        </form>
+   
+
+            
+            <div class="social-section">
+                
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/oumaima.elmamouny" target="_blank">
+                      
+                        <img src="https://img.icons8.com/ios-filled/24/000000/instagram.png" alt="إنستغرام">
+                    </a>
+                    <a href="https://www.facebook.com/oumaima.elmamouny" target="_blank">
+                       
+                        <img src="https://img.icons8.com/ios-filled/24/000000/facebook.png" alt="فيسبوك">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p id="footer-text"></p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            const menuIcon = document.querySelector('.menu-icon');
+
+            nav.classList.toggle('open');
+
+            // تغيير الصورة بناءً على حالة القائمة
+            if (nav.classList.contains('open')) {
+                menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/left-arrow.png')";
+            } else {
+                menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/menu.png')";
+            }
+        }
+
+        // عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentYear = new Date().getFullYear(); // السنة الحالية
+            const websiteName = "مراجعة مع أميمة"; // استبدل بالاسم الخاص بموقعك
+
+            const footerText = document.getElementById('footer-text');
+            footerText.textContent = `جميع الحقوق محفوظة © ${currentYear} `;
+        });
+    </script>
+</body>
+</html>
