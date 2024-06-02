@@ -4,242 +4,229 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>مراجعة مع أميمة</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
-
-
-   <style>
-    body {
-        font-family: Rubik, sans-serif;
-        line-height: 1.8;
-        margin: 0;
-        background-color: #ffb1000d;/* theme */
-        direction: rtl; /* RTL direction for body */
-    }
-
-   
-
-    .book {
-        margin-bottom: 20px;
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 5px;
-        box-sizing: border-box;
-        text-align: center; /* Center text within book elements */
-        display: inline-block; /* Display books side-by-side */
-        margin: 10px;
-    }
-
-    /* Adjust for smaller screens (less than 992px) */
-    @media (max-width: 991px) {
-        .book {
-            width: calc(33.333% - 20px); /* Adjust width for 3 columns */
-        }
-    }
-
-    /* Adjust for smaller screens (less than 768px) */
-    @media (max-width: 767px) {
-        .book {
-            width: calc(50% - 20px); /* Adjust width for 2 columns */
-        }
-    }
-
-    /* Adjust for even smaller screens (less than 480px) */
-    @media (max-width: 480px) {
-        
+    <style>
+        body {
+            font-family: Rubik, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            background-color: #ffb1000d;/* theme */
+            direction: rtl; /* RTL direction for body */
         }
 
         .book {
-            width: calc(100% - 20px); /* عرض العناصر بالمنتصف مع مسافة 10 بكسل من الجهتين */
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            text-align: center; /* Center text within book elements */
+            display: inline-block; /* Display books side-by-side */
+            margin: 10px;
         }
-    }
 
-    .book img {
-        width: 100%; /* Make images responsive to container width */
-        height: 350px; /* Set a fixed height for all images */
-        object-fit: cover; /* Crop images to fit the container */
-    }
+        /* Adjust for smaller screens (less than 992px) */
+        @media (max-width: 991px) {
+            .book {
+                width: calc(33.333% - 20px); /* Adjust width for 3 columns */
+            }
+        }
 
-    .view-book-btn {
-       font-family: Rubik, sans-serif;
-        padding: 5px 10px;
-        background-color: #e74c3c; /* Orange button color */
-        color: white;
-        border: none;
-        border-radius: 40px;
-        cursor: pointer;
-        margin-top: 10px;
-        display: block; /* Make button a block element */
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%; /* Adjust button width */
-    }
+        /* Adjust for smaller screens (less than 768px) */
+        @media (max-width: 767px) {
+            .book {
+                width: calc(50% - 20px); /* Adjust width for 2 columns */
+            }
+        }
 
-    h2 {
-        color: #85640a; /* Darker orange for headings */
-        margin-bottom: 20px; /* Add bottom margin */
-        text-decoration: none; /* Remove underline from book titles */
-        letter-spacing: 0rem;
-    }
+        /* Adjust for even smaller screens (less than 480px) */
+        @media (max-width: 480px) {
+            .book {
+                width: calc(100% - 20px); /* عرض العناصر بالمنتصف مع مسافة 10 بكسل من الجهتين */
+            }
+        }
 
-    /* تغيير لون العناصر عند تمرير المؤشر (hover) */
-    .book:hover {
-        border-color: #e74c3c; /* تغيير لون الحدود للكتاب */
-    }
+        .book img {
+            width: 100%; /* Make images responsive to container width */
+            height: 350px; /* Set a fixed height for all images */
+            object-fit: cover; /* Crop images to fit the container */
+        }
 
-    .book:hover h3 {
-        color: #e74c3c; /* تغيير لون عنوان الكتاب */
-    }
+        .view-book-btn {
+            font-family: Rubik, sans-serif;
+            padding: 5px 10px;
+            background-color: #e74c3c; /* Orange button color */
+            color: white;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block; /* Make button a block element */
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%; /* Adjust button width */
+        }
 
-    .book:hover .view-book-btn {
-        background-color: red; /* تغيير لون زر المراجعة */
-    }
+        h2 {
+            color: #85640a; /* Darker orange for headings */
+            margin-bottom: 20px; /* Add bottom margin */
+            text-decoration: none; /* Remove underline from book titles */
+            letter-spacing: 0rem;
+        }
 
-    /* Second Style Section */
+        /* تغيير لون العناصر عند تمرير المؤشر (hover) */
+        .book:hover {
+            border-color: #e74c3c; /* تغيير لون الحدود للكتاب */
+        }
 
-    header {
-        background-color: #ffffff;
-        color: #fff;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-    }
+        .book:hover h3 {
+            color: #e74c3c; /* تغيير لون عنوان الكتاب */
+        }
 
-    .logo {
-        width: 100px;
-        height: auto;
-        margin-left: 10%;
-        margin-right: 5%;
-    }
+        .book:hover .view-book-btn {
+            background-color: red; /* تغيير لون زر المراجعة */
+        }
 
-    nav {
-        display: flex;
-        gap: 20px;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+        /* Second Style Section */
 
-    .nav-a {
-        text-decoration: none;
-        color: black;
-    }
+        header {
+            background-color: #ffffff;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
 
-.nav-a:hover {
-        color: #85640a;
-    }
-    
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-left: 10%;
+            margin-right: 5%;
+        }
 
-    nav.open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 140px;
-        left: 0;
-        right: 0;
-        background-color: #fff;
-        /* border: 1px solid #333; */
-        border-radius: 0px;
-        padding: 10px;
-        height: auto;
-    }
+        nav {
+            display: flex;
+            gap: 20px;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
 
-    nav.open a {
-        color: #000;
-    }
+        .nav-a {
+            text-decoration: none;
+            color: black;
+        }
 
-    .menu-icon {
-        display: none;
-        width: 25px;
-        height: 25px;
-        cursor: pointer;
-        background-image: url('https://wa022.github.io/2028/menu.png');
-        background-size: cover;
-    }
+        .nav-a:hover {
+            color: #85640a;
+        }
 
-   .search-box {
-        text-align: center;
-        padding: 20px;
-    }
+        nav.open {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 140px;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            border-radius: 0px;
+            padding: 10px;
+            height: auto;
+        }
 
- .search-box input{
- font-family: Rubik, sans-serif;
-        border-width: 1px;
-        height: 25px;
-        border-radius: 0px 20px 20px 0px;
-        padding-right: 15px;
-    }
+        nav.open a {
+            color: #000;
+        }
 
-.search-box button {
-font-family: Rubik, sans-serif;
-    border-width: 1px;
-    height: 29px;
-    width: 29px;
-   border-radius: 20px 0px 0px 20px;
-    text-align: center;
-    background: black;
-    }
-    
-.search-box button:hover {
+        .menu-icon {
+            display: none;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            background-image: url('https://wa022.github.io/2028/menu.png');
+            background-size: cover;
+        }
+
+        .search-box {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .search-box input{
+            font-family: Rubik, sans-serif;
+            border-width: 1px;
+            height: 25px;
+            border-radius: 0px 20px 20px 0px;
+            padding-right: 15px;
+        }
+
+        .search-box button {
+            font-family: Rubik, sans-serif;
+            border-width: 1px;
+            height: 29px;
+            width: 29px;
+            border-radius: 20px 0px 0px 20px;
+            text-align: center;
+            background: black;
+        }
+
+        .search-box button:hover {
             background-color: #ff7a2a;
             border-width: 0px;
         }
 
+        @media screen and (max-width: 576px) {
+            header {
+                flex-direction: row-reverse;
+            }
 
+            .logo {
+                margin-left: auto;
+                margin-right: 10px;
+            }
 
-    @media screen and (max-width: 576px) {
-        header {
-            flex-direction: row-reverse;
+            nav {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .search-box {
+                padding: 10px;
+            }
         }
 
-        .logo {
-            margin-left: auto;
-            margin-right: 10px;
+        @media screen and (min-width: 577px) and (max-width: 768px) {
+            .logo {
+                margin-left: 5%;
+                margin-right: 10%;
+            }
         }
 
-        nav {
-            display: none;
+        @media screen and (min-width: 769px) and (max-width: 992px) {
+            .logo {
+                margin-left: 10%;
+                margin-right: 5%;
+            }
         }
 
-        .menu-icon {
-            display: block;
+        @media screen and (min-width: 993px) {
+            .logo {
+                margin-left: 10%;
+                margin-right: 5%;
+            }
         }
 
-        .search-box {
-            padding: 10px;
-        }
-    }
-
-    @media screen and (min-width: 577px) and (max-width: 768px) {
-        .logo {
-            margin-left: 5%;
-            margin-right: 10%;
-        }
-    }
-
-    @media screen and (min-width: 769px) and (max-width: 992px) {
-        .logo {
-            margin-left: 10%;
-            margin-right: 5%;
-        }
-    }
-
-    @media screen and (min-width: 993px) {
-        .logo {
-            margin-left: 10%;
-            margin-right: 5%;
-        }
-    }
-    
-    
-    
-      /* CSS styles */
-  #loading-screen {
+        /* CSS styles */
+        #loading-screen {
             position: fixed;
             top: 0;
             left: 0;
@@ -259,396 +246,167 @@ font-family: Rubik, sans-serif;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        
 
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
-    .tg td,
-    .tg th {
-      border-color: black;
-      border-style: solid;
-      border-width: 1px;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      overflow: hidden;
-      padding: 0px;
-      word-break: normal;
-    }
+        .tg td,
+        .tg th {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            overflow: hidden;
+            padding: 0px;
+            word-break: normal;
+        }
 
-    .tg .tg-0pky {
-      border-color: inherit;
-      text-align: center;
-      vertical-align: top;
-    }
+        .tg .tg-0pky {
+            border-color: inherit;
+            text-align: center;
+            vertical-align: top;
+        }
 
-    .tg .tg-0lax {
-      text-align: center;
-      vertical-align: top;
-    }
+        .tg .tg-0lax {
+            text-align: center;
+            vertical-align: top;
+        }
 
-    @media (min-width: 601px) {
-#sendingMessage {
-        text-align: right;
-      }
-    .btn{
-       float: right;
-      }
+        @media (min-width: 601px) {
+            #sendingMessage {
+                text-align: right;
+            }
 
+            .btn{
+                float: right;
+            }
 
-      .tg td:nth-child(1),
-      .tg th:nth-child(1) {
-        width: 30%;
-        text-align: right;
-        padding-left: 15px;
-        padding-right: 15px;
-     font-family: Rubik, sans-serif;
+            .tg td:nth-child(1),
+            .tg th:nth-child(1) {
+                width: 30%;
+                text-align: right;
+                padding-left: 15px;
+                padding-right: 15px;
+                font-family: Rubik, sans-serif;
+            }
 
+            .tg td:nth-child(2),
+            .tg th:nth-child(2) {
+                width: 70%;
+                text-align: right;
+                padding-left: 15px;
+                padding-right: 15px;
+                font-family: Rubik, sans-serif;
+            }
+        }
 
+        @media (max-width: 600px) {
+            #sendingMessage {
+                text-align: center;
+            }
 
-      }
+            .btn{
+                float: center;
+            }
 
-      .tg td:nth-child(2),
-      .tg th:nth-child(2) {
-        width: 70%;
-        text-align: right;
-        padding-right: 18px;
-        padding-left: 18px;
-     font-family: Rubik, sans-serif;
+            .tg td:nth-child(1),
+            .tg th:nth-child(1) {
+                width: 30%;
+                text-align: right;
+                padding-left: 15px;
+                padding-right: 15px;
+                font-family: Rubik, sans-serif;
+            }
 
-      }
-    }
-
-    @media (max-width: 600px) {
-
- #sendingMessage {
-        text-align: center;
-      }
-
-
-      .tg td,
-      .tg th {
-        display: block;
-        text-align: right;
-        font-family: Rubik, sans-serif;
-
-
-      }
-
-      .tg td:nth-child(odd),
-      .tg th:nth-child(odd) {
-        background-color: #f2f2f2;
-      
-
-      }
-    }
-
-    #summary {
-      white-space: pre-line;
-    }
-
-    /* Star rating styles */
-    #star-rating {
-      direction: rtl;
-    }
-
-    .star {
-      cursor: pointer;
-      font-size: 24px;
-      color: #ccc;
-    }
-
-    .selected {
-      color: #ff9d00;
-    }
-
-    .yellow-star {
-      color: #ff9d00;
-      font-size: 18px;
-    }
-
-
-  .btn {
-      font-family: Rubik, sans-serif;
-      display: block;
-      width: 100%;
-      max-width: 200px;
-      margin: 20px auto;
-      padding: 10px;
-      background-color: #ff9d00;
-      border: none;
-      border-radius: 5px;
-      color: #fff;
-      font-size: 1em;
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .btn:hover {
-      background-color: #efc787;
-    } 
-    
-    
-    
-   
-    
-</style>
-
+            .tg td:nth-child(2),
+            .tg th:nth-child(2) {
+                width: 70%;
+                text-align: right;
+                padding-left: 15px;
+                padding-right: 15px;
+                font-family: Rubik, sans-serif;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div id="loading-screen">
+        <div class="spinner"></div>
+    </div>
     <header>
-        <div class="menu-icon" onclick="toggleMenu()"></div>
-        <img src="https://wa022.github.io/reviewwithoumaima/logoB.png" alt="شعار" class="logo">
-        <nav >
-            <a href="#" class="nav-a">الرئيسية</a>
-            <a href="#" class="nav-a">من أنا</a>
-            <a href="#" class="nav-a">للتواصل معي</a>
+        <img src="https://wa022.github.io/2028/omima.png" alt="Logo" class="logo">
+        <nav>
+            <a href="https://wa022.github.io/2028/" class="nav-a">الصفحة الرئيسية</a>
+            <a href="https://wa022.github.io/2028/2028/contact" class="nav-a">تواصل معنا</a>
+            <a href="https://wa022.github.io/2028/2028/aboutus" class="nav-a">من نحن</a>
         </nav>
+        <div class="menu-icon"></div>
     </header>
 
     <div class="search-box">
-        <input type="text" placeholder="ابحث هنا...">
-        <button><img style="vertical-align: middle;height: 13px;" src="https://img.icons8.com/ios-filled/24/ffffff/search.png" alt="بحث"></button>
+        <button class="search-btn"></button>
+        <input type="text" id="search-input" placeholder="البحث...">
     </div>
 
-    <!-- المحتوى الآخر يأتي هنا -->
-       <div id="loading-screen">
-        <div class="spinner"></div>
+    <h2>هيا نستعرض كتبي</h2>
+
+    <div id="book-container">
+        <div class="book">
+            <img src="https://wa022.github.io/2028/book1.jpg" alt="Book 1">
+            <h3>العنوان 1</h3>
+            <button class="view-book-btn">عرض الكتاب</button>
+        </div>
+        <div class="book">
+            <img src="https://wa022.github.io/2028/book2.jpg" alt="Book 2">
+            <h3>العنوان 2</h3>
+            <button class="view-book-btn">عرض الكتاب</button>
+        </div>
+        <div class="book">
+            <img src="https://wa022.github.io/2028/book3.jpg" alt="Book 3">
+            <h3>العنوان 3</h3>
+            <button class="view-book-btn">عرض الكتاب</button>
+        </div>
     </div>
 
-  <div id="book-details" class="hidden">
-    <table style="width: 100%;border-color: transparent;" class="tg">
-      <thead>
-        <tr>
-          <th style="text-align: center;border-color: transparent;" class="tg-0lax">
-            <h2 id="book-title"></h2>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="text-align: center;border-color: transparent;" class="tg-0lax" rowspan="5"><img style="height: 400px;" id="book-cover" src="" alt="غلاف الكتاب"></td>
-          <td class="tg-0pky">
-            <p style="font-size: 10px;">اسم الكاتب</p>
-            <p id="author"></p>
-          </td>
-        </tr>
-        <tr>
-          <td class="tg-0pky">
-            <p style="font-size: 10px;">عدد الصفحات</p>
-            <p id="pages"></p>
-          </td>
-        </tr>
-        <tr>
-          <td class="tg-0pky">
-            <p style="font-size: 10px;">الفئة</p>
-            <p id="category"></p>
-          </td>
-        </tr>
-
-        <tr>
-          <td  style="font-size: 10px;" class="tg-0pky">تقييم الزوار
-            <p id="rating-f"><span class="star-rating"></span></p>
-          </td>
-        </tr>
-        <tr>
-          <td style="border-color: transparent;" class="tg-0lax" colspan="2">
-            <label style="color:black;font-size: 10px;" for="visitorRating" class="form-label">رأيك يهمنا</label>
-            <div class="container">
-              <div class="content">
-                <div class="user-details">
-                  <div id="star-rating">
-                    <span class="star" data-rating="1">&#9733;</span>
-                    <span class="star" data-rating="2">&#9733;</span>
-                    <span class="star" data-rating="3">&#9733;</span>
-                    <span class="star" data-rating="4">&#9733;</span>
-                    <span class="star" data-rating="5">&#9733;</span>
-                  </div>
-                  <form id="visitorRatingForm" style="color: white; margin:0px; text-align: right;" action="YOUR_GOOGLE_APPS_SCRIPT_URL" method="POST">
-                    <input type="hidden" id="bookTitle" name="bookTitle">
-                    <input type="hidden" id="author" name="author">
-                    <input type="hidden" id="visitorRating" name="visitorRating">
-                    <button style="color:black;margin-top: 5px;" type="submit" class="btn" id="submitRating">ارسال تقييمك</button>
-                    <p class="sendingMessage" id="sendingMessage" style="display:none;color:black;text-align: center;">شكرًا على المشاركة!</p>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="border-color: transparent;" class="tg-0lax" colspan="2">
-            <h2>الملخص</h2>
-            <p id="summary"></p>
-            <h2>تقييمي الشخصي</h2>
-            <p id="rating"></p>
-            <p id="review"></p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-    
-    
+    <div id="sendingMessage">
+        <h2>إذا أردت إرسال رسالة، رجاءً املأ النموذج التالي:</h2>
+        <form>
+            <table class="tg">
+                <thead>
+                    <tr>
+                        <th class="tg-0pky">البريد الإلكتروني</th>
+                        <th class="tg-0lax"><input type="email"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tg-0pky">الرسالة</td>
+                        <td class="tg-0lax"><textarea></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn">إرسال</button>
+        </form>
+    </div>
 
     <script>
-      function toggleMenu() {
-        const nav = document.querySelector('nav');
-        const menuIcon = document.querySelector('.menu-icon');
-
-        nav.classList.toggle('open');
-
-        // تغيير الصورة بناءً على حالة القائمة
-        if (nav.classList.contains('open')) {
-            menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/left-arrow.png')";
-        } else {
-            menuIcon.style.backgroundImage = "url('https://wa022.github.io/2028/menu.png')";
-        }
-    }
-      
-      
-
-
-    // الدالة للبحث عن الكلمة المدخلة
-    function searchBooks() {
-        var searchTerm = document.querySelector('input[type="text"]').value.trim().toLowerCase(); // الكلمة المدخلة في مربع البحث
-
-        // توجيه المستخدم إلى صفحة result.html مع إضافة الكلمة المدخلة كمعلمة في العنوان
-        window.location.href = 'result.html?search=' + encodeURIComponent(searchTerm);
-    }
-    
-    // اربط الدالة بزر البحث
-    document.querySelector('button').addEventListener('click', searchBooks);
-
-
-
-
-      
-         $(document).ready(function () {
-      var urlParams = new URLSearchParams(window.location.search);
-      var bookTitle = decodeURIComponent(urlParams.get('title'));
-
-      $.ajax({
-        url: "https://sheets.googleapis.com/v4/spreadsheets/1eFNyOTc1sjFwoBYA5FzB4f-ecGs0w-COjOZ_mXLWBbo/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
-        method: "GET",
-        success: function (data) {
-          var books = data.values;
-          books.shift();
-
-          var foundBook = books.find(function (book) {
-            return book[0] === bookTitle;
-          });
-
-          if (foundBook) {
-            $('#book-title').text(foundBook[0]);
-            $('#book-cover').attr('src', foundBook[1]);
-            $('#author').text(foundBook[2]);
-            $('#category').text(foundBook[4]);
-            $('#pages').text(foundBook[3]);
-
-            if (foundBook[7]) {
-              $('#review').text(foundBook[8]);
-            } else {
-              $('#review').text('لا توجد مراجعة حاليا.');
-            }
-
-            var officialRatingValue = parseInt(foundBook[6]);
-            var starsString = '';
-            for (var i = 0; i < officialRatingValue; i++) {
-              starsString += '⭐';
-            }
-            $('#rating').text(starsString);
-
-            $('#summary').text('' + foundBook[7]);
-
-            $.ajax({
-              url: "https://sheets.googleapis.com/v4/spreadsheets/1BlEY02zKqkGzWQv_IOPzEaCIV0fXdc7O-aZ14rBrzRI/values/Sheet1!A1:N100?key=AIzaSyBhiqVypmyLHYPmqZYtvdSvxEopcLZBdYU",
-              method: "GET",
-              success: function (ratingsData) {
-                var ratingsArray = ratingsData.values;
-                var bookRatings = ratingsArray.filter(function (rating) {
-                  return rating[0] === bookTitle;
-                });
-
-                if (bookRatings.length > 0) {
-                  var sum = bookRatings.reduce((acc, val) => acc + parseInt(val[1]), 0);
-                  var averageRating = sum / bookRatings.length;
-
-                  var starRating = $('#rating-f .star-rating');
-                  starRating.empty();
-
-                  var filledStars = Math.round(averageRating);
-
-                  for (var i = 0; i < filledStars; i++) {
-                    var star = $('<span>').addClass('star yellow-star').text('⭐');
-                    starRating.append(star);
-                  }
-                  $('#rating-f').append(`<p>${averageRating.toFixed(1)} (${bookRatings.length} تقييما)</p>`);
-                }
-              },
-              error: function () {
-                console.error("حدث خطأ أثناء جلب تقييمات الزوار");
-              }
+        $(document).ready(function () {
+            $('.menu-icon').click(function () {
+                $('nav').toggleClass('open');
             });
-
-            $('#bookTitle').val(foundBook[0]);
-            $('#author').val(foundBook[2]);
-
-            $('#loading-screen').fadeOut('slow', function () {
-              $('#book-details').fadeIn('slow');
-            });
-          } else {
-            $('#book-details').html('<p>لم يتم العثور على تفاصيل الكتاب.</p>');
-            $('#loading-screen').fadeOut('slow');
-          }
-        },
-        error: function () {
-          $('#book-details').html('<p>حدث خطأ أثناء جلب تفاصيل الكتاب.</p>');
-          $('#loading-screen').fadeOut('slow');
-        }
-      });
-
-      $('#star-rating .star').click(function () {
-        var rating = $(this).data('rating');
-        $('#visitorRating').val(rating);
-        $(this).addClass('selected').prevAll().addClass('selected');
-        $(this).nextAll().removeClass('selected');
-      });
-
-      $('#visitorRatingForm').submit(function (event) {
-        event.preventDefault();
-        if ($('#visitorRating').val() === "") {
-          alert("يرجى اختيار تقييم قبل الإرسال");
-          return;
-        }
-        $('#submitRating').hide();
-        $('#star-rating').hide();
-        $('#sendingMessage').show();
-        var formData = $(this).serialize();
-        $.ajax({
-          url: "https://script.google.com/macros/s/AKfycbyX1xR2RskLrdl7c72lw6rR7D64CACmRG0dYWOxViS7nUr10UIZZl9ymmK7MPeOGITHIQ/exec",
-          method: "POST",
-          data: formData,
-          success: function (response) {
-            console.log("تم إرسال التقييم بنجاح.");
-            $('#sendingMessage').hide();
-            $('#feedbackMessage').show();
-          },
-          error: function (xhr, status, error) {
-            console.error("حدث خطأ أثناء إرسال التقييم:", error);
-          }
         });
-      });
-    });
-        
-        
-        
+
+        // Hide loading screen when the page is fully loaded
+        window.onload = function () {
+            document.getElementById('loading-screen').style.display = 'none';
+        }
     </script>
 </body>
 </html>
